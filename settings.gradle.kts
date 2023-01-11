@@ -13,4 +13,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "FeatureDelivery"
-include ':app'
+include(":app")
