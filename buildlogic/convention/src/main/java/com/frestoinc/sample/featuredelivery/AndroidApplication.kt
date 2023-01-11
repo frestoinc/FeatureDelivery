@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-@Suppress("UnstableApiUsage")
-dependencyResolutionManagement {
-    repositories {
-        google()
-        mavenCentral()
-    }
-    versionCatalogs {
-        create("libs") {
-            from(files("../gradle/libs.versions.toml"))
+package com.frestoinc.sample.featuredelivery
+
+import com.android.build.api.dsl.ApplicationExtension
+import org.gradle.api.Project
+
+internal fun Project.configureAndroidApplication(
+    extension: ApplicationExtension,
+) {
+
+    extension.apply {
+        defaultConfig {
+            targetSdk = ANDROID_TARGET_SDK_VERSION
         }
     }
 }
-
-rootProject.name = "buildlogic"
-include(":convention")

@@ -18,9 +18,35 @@ plugins {
     `kotlin-dsl`
 }
 
-group = "com.frestoinc.samples.android.challenges.buildlogic"
+group = "com.frestoinc.samples.featuredelivery.buildlogic"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+dependencies {
+    compileOnly(libs.android.gradlePlugin)
+    compileOnly(libs.kotlin.gradlePlugin)
+}
+
+gradlePlugin {
+    plugins {
+        register("androidApplication") {
+            id = "featuredelivery.android.application"
+            implementationClass = "AndroidAppPlugin"
+        }
+        register("androidKotlin") {
+            id = "featuredelivery.android.kotlin"
+            implementationClass = "AndroidKotlinPlugin"
+        }
+        register("androidLibrary") {
+            id = "featuredelivery.android.library"
+            implementationClass = "AndroidLibraryPlugin"
+        }
+        register("androidCompose") {
+            id = "featuredelivery.android.compose"
+            implementationClass = "AndroidComposePlugin"
+        }
+    }
 }
