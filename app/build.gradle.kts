@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.frestoinc.samplefeaturedelivery"
+    namespace = "com.frestoinc.sample.featuredelivery"
     compileSdk = 33
 
     defaultConfig {
-        applicationId = "com.frestoinc.samplefeaturedelivery"
+        applicationId = "com.frestoinc.sample.featuredelivery"
         minSdk = 28
         targetSdk = 33
         versionCode = 1

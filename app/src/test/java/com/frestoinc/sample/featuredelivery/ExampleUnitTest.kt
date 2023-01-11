@@ -1,4 +1,4 @@
-package com.frestoinc.samplefeaturedelivery
+package com.frestoinc.sample.featuredelivery
 
 import org.junit.Assert.assertEquals
 import org.junit.Test
