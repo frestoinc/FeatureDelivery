@@ -16,3 +16,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "FeatureDelivery"
 include(":app")
+include(":installtime:introduction")

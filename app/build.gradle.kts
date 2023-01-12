@@ -5,6 +5,7 @@ plugins {
 
 android {
     namespace = "com.frestoinc.sample.featuredelivery"
+    dynamicFeatures += setOf(":installtime:introduction")
 }
 
 dependencies {
