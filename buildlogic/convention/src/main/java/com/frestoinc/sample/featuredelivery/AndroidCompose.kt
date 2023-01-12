@@ -53,5 +53,9 @@ internal fun Project.configureAndroidCompose(
             add("implementation", platform(LIBRARY_COMPOSE_BOM))
             add("androidTestImplementation", platform(LIBRARY_COMPOSE_BOM))
         }
+
+        lint {
+            disable += "UnusedMaterialScaffoldPaddingParameter"
+        }
     }
 }

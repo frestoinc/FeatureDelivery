@@ -15,7 +15,10 @@
  */
 
 import com.android.build.api.dsl.LibraryExtension
-import com.frestoinc.sample.featuredelivery.*
+import com.frestoinc.sample.featuredelivery.ID_ANDROID_LIBRARY
+import com.frestoinc.sample.featuredelivery.ID_KOTLIN_ANDROID
+import com.frestoinc.sample.featuredelivery.configureAndroidLibrary
+import com.frestoinc.sample.featuredelivery.configureGradleSetting
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
@@ -27,7 +30,7 @@ class AndroidLibPlugin : Plugin<Project> {
             with(pluginManager) {
                 apply(ID_ANDROID_LIBRARY)
                 apply(ID_KOTLIN_ANDROID)
-                apply(ID_KOTLIN_KAPT)
+                //apply(ID_KOTLIN_KAPT)
             }
 
             extensions.configure<LibraryExtension> {

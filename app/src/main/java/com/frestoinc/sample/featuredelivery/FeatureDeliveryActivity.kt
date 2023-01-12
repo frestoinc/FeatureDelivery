@@ -1,6 +1,5 @@
 package com.frestoinc.sample.featuredelivery
 
-import android.annotation.SuppressLint
 import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -15,7 +14,6 @@ import com.frestoinc.sample.featuredelivery.ui.theme.MyApplicationTheme
 
 class FeatureDeliveryActivity : ComponentActivity() {
 
-    @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, true)
@@ -34,7 +32,6 @@ class FeatureDeliveryActivity : ComponentActivity() {
         Text(text = "Hello $name!", textAlign = TextAlign.Justify)
     }
 
-    @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     @Preview("default", showBackground = true)
     @Preview("dark theme", uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true)
     @Composable
