@@ -32,7 +32,8 @@ class AndroidAppPlugin : Plugin<Project> {
 
             extensions.configure<ApplicationExtension> {
                 configureAndroidApplication(this)
-                configureAndroidKotlin(this)
+                configureGradleSetting(this)
+                configureAndroidCompose(this)
             }
         }
     }

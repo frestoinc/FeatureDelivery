@@ -14,18 +14,26 @@
  * limitations under the License.
  */
 
-import com.android.build.api.dsl.ApplicationExtension
-import com.frestoinc.sample.featuredelivery.configureAndroidCompose
+import com.android.build.api.dsl.DynamicFeatureExtension
+import com.frestoinc.sample.featuredelivery.ID_ANDROID_DYNAMIC_FEATURE
+import com.frestoinc.sample.featuredelivery.ID_KOTLIN_ANDROID
+import com.frestoinc.sample.featuredelivery.ID_KOTLIN_KAPT
+import com.frestoinc.sample.featuredelivery.configureGradleSetting
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 
-class AndroidAppComposePlugin : Plugin<Project> {
+class AndroidDynamicFeatPlugin : Plugin<Project> {
 
     override fun apply(target: Project) {
         with(target) {
-            extensions.configure<ApplicationExtension> {
-                configureAndroidCompose(this)
+            with(pluginManager) {
+                apply(ID_ANDROID_DYNAMIC_FEATURE)
+                apply(ID_KOTLIN_ANDROID)
+                apply(ID_KOTLIN_KAPT)
+            }
+            extensions.configure<DynamicFeatureExtension> {
+                configureGradleSetting(this)
             }
         }
     }

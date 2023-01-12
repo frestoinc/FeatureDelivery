@@ -32,7 +32,7 @@ class AndroidLibComposePlugin : Plugin<Project> {
 
             extensions.configure<LibraryExtension> {
                 configureAndroidLibrary(this)
-                configureAndroidKotlin(this)
+                configureGradleSetting(this)
                 configureAndroidCompose(this)
             }
         }

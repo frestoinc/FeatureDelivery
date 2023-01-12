@@ -1,11 +1,10 @@
 plugins {
     id("featuredelivery.android.app")
-    id("featuredelivery.android.app.compose")
 }
 
 android {
     namespace = "com.frestoinc.sample.featuredelivery"
-    dynamicFeatures += setOf(":installtime:introduction")
+    dynamicFeatures += setOf(":feature:introduction")
 }
 
 dependencies {

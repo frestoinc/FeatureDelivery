@@ -36,21 +36,17 @@ gradlePlugin {
             id = "featuredelivery.android.app"
             implementationClass = "AndroidAppPlugin"
         }
-        register("androidKotlin") {
-            id = "featuredelivery.android.kotlin"
-            implementationClass = "AndroidKotlinPlugin"
-        }
         register("androidLibrary") {
-            id = "featuredelivery.android.library"
-            implementationClass = "AndroidLibraryPlugin"
-        }
-        register("androidAppCompose") {
-            id = "featuredelivery.android.app.compose"
-            implementationClass = "AndroidAppComposePlugin"
+            id = "featuredelivery.android.lib"
+            implementationClass = "AndroidLibPlugin"
         }
         register("androidLibCompose") {
             id = "featuredelivery.android.lib.compose"
             implementationClass = "AndroidLibComposePlugin"
+        }
+        register("androidDynamicFeat") {
+            id = "featuredelivery.android.dynamic.feature"
+            implementationClass = "AndroidDynamicFeatPlugin"
         }
     }
 }

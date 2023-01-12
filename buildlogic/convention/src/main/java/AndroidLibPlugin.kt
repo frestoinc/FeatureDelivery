@@ -14,25 +14,25 @@
  * limitations under the License.
  */
 
-import com.android.build.api.dsl.ApplicationExtension
-import com.frestoinc.sample.featuredelivery.ID_KOTLIN_ANDROID
-import com.frestoinc.sample.featuredelivery.ID_KOTLIN_KAPT
-import com.frestoinc.sample.featuredelivery.configureAndroidKotlin
+import com.android.build.api.dsl.LibraryExtension
+import com.frestoinc.sample.featuredelivery.*
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 
-class AndroidKotlinPlugin : Plugin<Project> {
+class AndroidLibPlugin : Plugin<Project> {
 
     override fun apply(target: Project) {
         with(target) {
             with(pluginManager) {
+                apply(ID_ANDROID_LIBRARY)
                 apply(ID_KOTLIN_ANDROID)
                 apply(ID_KOTLIN_KAPT)
             }
 
-            extensions.configure<ApplicationExtension> {
-                configureAndroidKotlin(this)
+            extensions.configure<LibraryExtension> {
+                configureAndroidLibrary(this)
+                configureGradleSetting(this)
             }
         }
     }

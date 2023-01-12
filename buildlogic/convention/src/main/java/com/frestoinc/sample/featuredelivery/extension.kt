@@ -76,6 +76,7 @@ internal fun Project.plugin(key: String): String = getLibsExtension()
 
 internal val Project.ID_ANDROID_APPLICATION get() = plugin("android.application")
 internal val Project.ID_ANDROID_LIBRARY get() = plugin("android.library")
+internal val Project.ID_ANDROID_DYNAMIC_FEATURE get() = plugin("android-dynamic-feature")
 internal val Project.ID_KOTLIN_ANDROID get() = plugin("kotlin.android")
 internal val Project.ID_KOTLIN_KAPT get() = plugin("kotlin.kapt")
 internal val Project.ID_HILT_ANDROID get() = plugin("hilt.android")

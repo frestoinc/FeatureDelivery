@@ -22,7 +22,7 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
 
 @Suppress("UnstableApiUsage")
-internal fun Project.configureAndroidKotlin(
+internal fun Project.configureGradleSetting(
     extension: CommonExtension<*, *, *, *>,
 ) {
     extension.apply {

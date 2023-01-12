@@ -3,7 +3,7 @@
 
     <dist:module
         dist:instant="false"
-        dist:title="@string/title_introduction">
+        dist:title="@string/module_name">
         <dist:delivery>
             <dist:install-time>
                 <dist:removable dist:value="true" />
