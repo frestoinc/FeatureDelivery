@@ -17,3 +17,4 @@ dependencyResolutionManagement {
 rootProject.name = "FeatureDelivery"
 include(":app")
 include(":feature:introduction")
+include(":core:data")
