@@ -8,6 +8,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.view.WindowCompat
 import com.frestoinc.sample.featuredelivery.ui.theme.MyApplicationTheme
@@ -30,7 +31,7 @@ class FeatureDeliveryActivity : ComponentActivity() {
 
     @Composable
     fun Greeting(name: String) {
-        Text(text = "Hello $name!")
+        Text(text = "Hello $name!", textAlign = TextAlign.Justify)
     }
 
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
