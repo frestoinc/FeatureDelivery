@@ -99,11 +99,20 @@ internal fun Project.library(key: String): String = getLibsExtension()
     .get()
     .toString()
 
-internal val Project.LIBRARY_HILT_ANDROID get() = library("hilt-android")
-internal val Project.LIBRARY_HILT_KAPT get() = library("hilt-compiler")
-internal val Project.LIBRARY_HILT_KAPT_TEST get() = library("hilt-compiler")
-internal val Project.LIBRARY_COMPOSE_BOM get() = library("androidx-compose-bom")
-internal val Project.LIBRARY_TIMBER get() = library("timber")
-internal val Project.LIBRARY_JUNIT get() = library("junit4")
-internal val Project.LIBRARY_ANDROIDX_JUNIT get() = library("androidx-test-junit")
-internal val Project.LIBRARY_ANDROIDX_ESPRESSO get() = library("androidx-test-espresso-core")
+internal val Project.LIBRARY_HILT_ANDROID
+    get() = library("hilt-android")
+internal val Project.LIBRARY_HILT_KAPT
+    get() = library("hilt-compiler")
+internal val Project.LIBRARY_HILT_KAPT_TEST
+    get() = library("hilt-compiler")
+internal val Project.LIBRARY_TIMBER
+    get() = library("timber")
+internal val Project.LIBRARY_JUNIT
+    get() = library("junit4")
+internal val Project.LIBRARY_JUNIT_ESPRESSO
+    get() = listOf(
+        library("androidx-test-junit"),
+        library("androidx-test-espresso-core")
+    )
+internal val Project.LIBRARY_COMPOSE_BOM
+    get() = library("androidx-compose-bom")

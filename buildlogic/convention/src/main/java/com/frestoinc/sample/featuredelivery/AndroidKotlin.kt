@@ -64,8 +64,9 @@ internal fun Project.configureAndroidKotlin(
             add("implementation", LIBRARY_TIMBER)
             // Test
             add("testImplementation", LIBRARY_JUNIT)
-            add("androidTestImplementation", LIBRARY_ANDROIDX_JUNIT)
-            add("androidTestImplementation", LIBRARY_ANDROIDX_ESPRESSO)
+            LIBRARY_JUNIT_ESPRESSO.forEach {
+                add("androidTestImplementation", it)
+            }
         }
     }
 }
