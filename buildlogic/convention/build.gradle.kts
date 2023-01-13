@@ -52,5 +52,9 @@ gradlePlugin {
             id = "featuredelivery.android.dynamic.feat.compose"
             implementationClass = "AndroidDynamicFeatComposePlugin"
         }
+        register("androidHilt") {
+            id = "featuredelivery.android.hilt"
+            implementationClass = "AndroidHiltPlugin"
+        }
     }
 }
