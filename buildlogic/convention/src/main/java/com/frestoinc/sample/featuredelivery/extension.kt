@@ -117,3 +117,14 @@ internal val Project.LIBRARY_JUNIT_ESPRESSO
     )
 internal val Project.LIBRARY_COMPOSE_BOM
     get() = library("androidx-compose-bom")
+
+internal val Project.LIBRARY_COMPOSE_TOOLING
+    get() = library("androidx-compose-ui-tooling")
+internal val Project.LIBRARY_COMPOSE_CORE
+    get() =
+        listOf(
+            library("androidx-compose-ui"),
+            library("androidx-compose-ui-tooling-preview"),
+            library("androidx-compose-material3"),
+            library("androidx-compose-material-icons-extended"),
+        )

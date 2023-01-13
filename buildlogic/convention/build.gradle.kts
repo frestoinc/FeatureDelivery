@@ -45,8 +45,12 @@ gradlePlugin {
             implementationClass = "AndroidLibComposePlugin"
         }
         register("androidDynamicFeat") {
-            id = "featuredelivery.android.dynamic.feature"
+            id = "featuredelivery.android.dynamic.feat"
             implementationClass = "AndroidDynamicFeatPlugin"
+        }
+        register("androidDynamicFeatCompose") {
+            id = "featuredelivery.android.dynamic.feat.compose"
+            implementationClass = "AndroidDynamicFeatComposePlugin"
         }
     }
 }

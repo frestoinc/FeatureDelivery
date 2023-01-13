@@ -30,7 +30,6 @@ class AndroidLibPlugin : Plugin<Project> {
             with(pluginManager) {
                 apply(ID_ANDROID_LIBRARY)
                 apply(ID_KOTLIN_ANDROID)
-                //apply(ID_KOTLIN_KAPT)
             }
 
             extensions.configure<LibraryExtension> {

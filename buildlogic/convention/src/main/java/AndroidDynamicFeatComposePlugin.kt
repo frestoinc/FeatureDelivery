@@ -14,25 +14,24 @@
  * limitations under the License.
  */
 
-import com.android.build.api.dsl.LibraryExtension
+import com.android.build.api.dsl.DynamicFeatureExtension
 import com.frestoinc.sample.featuredelivery.*
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 
-class AndroidLibComposePlugin : Plugin<Project> {
+class AndroidDynamicFeatComposePlugin : Plugin<Project> {
 
     override fun apply(target: Project) {
         with(target) {
             with(pluginManager) {
-                apply(ID_ANDROID_APPLICATION)
+                apply(ID_ANDROID_DYNAMIC_FEATURE)
                 apply(ID_KOTLIN_ANDROID)
             }
-
-            extensions.configure<LibraryExtension> {
-                configureAndroidLibrary(this)
+            extensions.configure<DynamicFeatureExtension> {
                 configureGradleSetting(this)
+                configureAndroidCompose(this)
                 configureAndroidCompose(this)
             }
 
