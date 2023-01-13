@@ -8,6 +8,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.datastore)
+    implementation(libs.moshi.kotlin)
 }
