@@ -1,6 +1,7 @@
 package com.frestoinc.sample.featuredelivery
 
 import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
 
-class FeatureDeliveryApp : Application() {
-}
+@HiltAndroidApp
+class FeatureDeliveryApp : Application() {}

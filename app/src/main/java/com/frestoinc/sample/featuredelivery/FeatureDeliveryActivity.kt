@@ -11,7 +11,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.view.WindowCompat
 import com.frestoinc.sample.featuredelivery.ui.theme.MyApplicationTheme
+import dagger.hilt.EntryPoint
 
+@EntryPoint
 class FeatureDeliveryActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

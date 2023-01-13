@@ -15,26 +15,33 @@
  */
 
 import com.android.build.api.dsl.ApplicationExtension
-import com.frestoinc.sample.featuredelivery.ID_ANDROID_APPLICATION
-import com.frestoinc.sample.featuredelivery.ID_KOTLIN_ANDROID
-import com.frestoinc.sample.featuredelivery.configureAndroidApplication
-import com.frestoinc.sample.featuredelivery.configureGradleSetting
+import com.frestoinc.sample.featuredelivery.*
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
+import org.gradle.kotlin.dsl.dependencies
 
-class AndroidAppPlugin : Plugin<Project> {
+class AndroidAppComposePlugin : Plugin<Project> {
 
     override fun apply(target: Project) {
         with(target) {
             with(pluginManager) {
                 apply(ID_ANDROID_APPLICATION)
                 apply(ID_KOTLIN_ANDROID)
+                //apply(ID_KOTLIN_KAPT)
             }
 
             extensions.configure<ApplicationExtension> {
                 configureAndroidApplication(this)
                 configureGradleSetting(this)
+                configureAndroidCompose(this)
+            }
+
+            dependencies {
+                LIBRARY_COMPOSE_CORE.forEach {
+                    "implementation"(it)
+                }
+                "debugImplementation"(LIBRARY_COMPOSE_TOOLING)
             }
         }
     }

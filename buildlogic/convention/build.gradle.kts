@@ -32,9 +32,13 @@ dependencies {
 
 gradlePlugin {
     plugins {
-        register("androidApplication") {
+        register("androidApp") {
             id = "featuredelivery.android.app"
             implementationClass = "AndroidAppPlugin"
+        }
+        register("androidAppCompose") {
+            id = "featuredelivery.android.app.compose"
+            implementationClass = "AndroidAppComposePlugin"
         }
         register("androidLibrary") {
             id = "featuredelivery.android.lib"
