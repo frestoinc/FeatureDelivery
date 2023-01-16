@@ -9,5 +9,6 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.activity.compose)
+    implementation(project(":core:data"))
+    implementation(libs.androidx.hilt.navigation.compose)
 }

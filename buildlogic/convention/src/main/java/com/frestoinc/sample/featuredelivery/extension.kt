@@ -119,12 +119,15 @@ internal val Project.LIBRARY_COMPOSE_BOM
     get() = library("androidx-compose-bom")
 
 internal val Project.LIBRARY_COMPOSE_TOOLING
-    get() = library("androidx-compose-ui-tooling")
+    get() = library("compose-tooling-debug")
 internal val Project.LIBRARY_COMPOSE_CORE
     get() =
         listOf(
-            library("androidx-compose-ui"),
-            library("androidx-compose-ui-tooling-preview"),
-            library("androidx-compose-material3"),
-            library("androidx-compose-material-icons-extended"),
+            library("compose-activity"),
+            library("compose-ui"),
+            library("compose-toolingpreview"),
+            library("compose-material3"),
+            library("compose-icons"),
+            library("compose-navigation"),
+            library("compose-viewmodel"),
         )
