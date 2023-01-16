@@ -14,10 +14,7 @@
  * limitations under the License.
  */
 
-import com.frestoinc.sample.featuredelivery.ID_KOTLIN_KAPT
-import com.frestoinc.sample.featuredelivery.LIBRARY_HILT_ANDROID
-import com.frestoinc.sample.featuredelivery.LIBRARY_HILT_KAPT
-import com.frestoinc.sample.featuredelivery.LIBRARY_HILT_KAPT_TEST
+import com.frestoinc.sample.featuredelivery.*
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
@@ -28,6 +25,7 @@ class AndroidHiltPlugin : Plugin<Project> {
         with(target) {
             with(pluginManager) {
                 apply(ID_KOTLIN_KAPT)
+                apply(ID_HILT_ANDROID)
             }
 
             dependencies {
