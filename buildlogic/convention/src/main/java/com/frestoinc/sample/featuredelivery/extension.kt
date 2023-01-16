@@ -89,7 +89,7 @@ internal fun Project.version(key: String): String = getLibsExtension()
 
 internal fun Project.versionInt(key: String): Int = version(key).toInt()
 
-internal val Project.COMPOSE_VERSION get() = version("androidxComposeCompiler")
+internal val Project.COMPOSE_VERSION get() = version("composeCompiler")
 internal val Project.ANDROID_COMPILE_SDK_VERSION get() = versionInt("android.compileSdk")
 internal val Project.ANDROID_MIN_SDK_VERSION get() = versionInt("android.minSdk")
 internal val Project.ANDROID_TARGET_SDK_VERSION get() = ANDROID_COMPILE_SDK_VERSION
@@ -116,7 +116,7 @@ internal val Project.LIBRARY_JUNIT_ESPRESSO
         library("androidx-test-espresso-core")
     )
 internal val Project.LIBRARY_COMPOSE_BOM
-    get() = library("androidx-compose-bom")
+    get() = library("compose-bom")
 
 internal val Project.LIBRARY_COMPOSE_TOOLING
     get() = library("compose-tooling-debug")
