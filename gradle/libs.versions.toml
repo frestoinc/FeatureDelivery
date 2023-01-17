@@ -10,7 +10,7 @@ core = "1.7.0"
 datastore = "1.0.0"
 espresso = "3.4.0"
 lifecycle = "2.5.1"
-playcore = "1.10.3"
+featureDelivery = "2.0.1"
 room = "2.4.3"
 startup = "1.1.1"
 androidxHilt = "1.0.0"
@@ -44,9 +44,11 @@ material3 = "1.0.1"
 [libraries]
 accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist" }
 android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "androidGradlePlugin" }
-# browser
+# AndroidX
 androidx-browser = { module = "androidx.browser:browser", version.ref = "browser" }
-androidx_playcore = { module = "com.google.android.play:core", version.ref = "playcore" }
+androidx-startup-runtime = { module = "androidx.startup:startup-runtime", version.ref = "startup" }
+androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "core" }
+
 # compose
 compose-bom = { module = "androidx.compose:compose-bom", version.ref = "composeBom" }
 compose-compiler = { module = "androidx.compose.compiler:compiler", version.ref = "composeCompiler" }
@@ -63,7 +65,6 @@ compose-paging = { module = "androidx.paging:paging-compose", version.ref = "com
 compose-junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
 compose-manifest-test = { module = "androidx.compose.ui:ui-test-manifest" }
 
-androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "core" }
 # hilt
 androidx-hilt-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "androidxHilt" }
 androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "androidxHilt" }
@@ -76,8 +77,9 @@ room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 room-paging = { module = "androidx.room:room-paging", version.ref = "room" }
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
-# startup
-androidx-startup-runtime = { module = "androidx.startup:startup-runtime", version.ref = "startup" }
+
+play-featuredelivery = { module = "com.google.android.play:feature-delivery", version.ref = "featureDelivery" }
+play-featuredelivery-ktx = { module = "com.google.android.play:feature-delivery-ktx", version.ref = "featureDelivery" }
 # datastore
 datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastore" }
 androidx-test-core = { module = "androidx.test:core", version.ref = "androidxTest" }
