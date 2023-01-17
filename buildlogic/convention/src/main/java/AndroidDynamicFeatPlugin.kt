@@ -32,6 +32,16 @@ class AndroidDynamicFeatPlugin : Plugin<Project> {
             }
             extensions.configure<DynamicFeatureExtension> {
                 configureGradleSetting(this)
+
+                buildTypes {
+                    release {
+                        isMinifyEnabled = true
+                        proguardFiles(
+                            getDefaultProguardFile("proguard-android-optimize.txt"),
+                            "proguard-rules-dynamic-features.pro"
+                        )
+                    }
+                }
             }
         }
     }
