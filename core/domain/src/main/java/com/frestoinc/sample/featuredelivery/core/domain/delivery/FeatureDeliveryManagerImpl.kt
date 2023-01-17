@@ -8,6 +8,9 @@ class FeatureDeliveryManagerImpl @Inject constructor(
     private val splitInstallManager: SplitInstallManager
 ) : FeatureDeliveryManager {
 
+    override val installedModules: Set<String>
+        get() = splitInstallManager.installedModules
+
     fun requestForInstall(
         vararg modules: String,
         onSuccessListener: (Int) -> Unit = {},

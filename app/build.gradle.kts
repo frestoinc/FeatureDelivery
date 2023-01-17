@@ -5,7 +5,11 @@ plugins {
 
 android {
     namespace = "com.frestoinc.sample.featuredelivery"
-    dynamicFeatures += setOf(":feature:introduction", ":feature:devicea")
+    dynamicFeatures += setOf(
+        ":feature:introduction",
+        ":feature:devicea",
+        ":feature:deviceb"
+    )
 }
 
 dependencies {
