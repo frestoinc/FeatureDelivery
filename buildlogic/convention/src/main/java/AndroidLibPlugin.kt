@@ -35,6 +35,13 @@ class AndroidLibPlugin : Plugin<Project> {
             extensions.configure<LibraryExtension> {
                 configureAndroidLibrary(this)
                 configureGradleSetting(this)
+
+                buildTypes {
+                    release {
+                        isMinifyEnabled = true
+                        consumerProguardFile("consumer-rules.pro")
+                    }
+                }
             }
         }
     }

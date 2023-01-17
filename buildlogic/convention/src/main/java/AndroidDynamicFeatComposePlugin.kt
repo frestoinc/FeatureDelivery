@@ -33,6 +33,16 @@ class AndroidDynamicFeatComposePlugin : Plugin<Project> {
                 configureGradleSetting(this)
                 configureAndroidCompose(this)
                 configureAndroidCompose(this)
+
+                buildTypes {
+                    release {
+                        isMinifyEnabled = true
+                        proguardFiles(
+                            getDefaultProguardFile("proguard-android-optimize.txt"),
+                            "proguard-rules-dynamic-features.pro"
+                        )
+                    }
+                }
             }
 
             dependencies {
