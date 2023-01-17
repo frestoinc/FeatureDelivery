@@ -1,12 +1,14 @@
 package com.frestoinc.sample.featuredelivery.core.data.preference
 
+import kotlinx.coroutines.flow.Flow
+
 interface PreferenceManager {
 
-    suspend fun isInstallTimeEnabled(): Boolean
+    val isInstallTimeEnabled: Flow<Boolean>
 
     suspend fun setInstallTimeEnabled(value: Boolean)
 
-    suspend fun isOnDemandEnabled(): Boolean
+    val isOnDemandEnabled: Flow<Boolean>
 
     suspend fun setOnDemandEnabled(value: Boolean)
 }

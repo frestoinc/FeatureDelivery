@@ -3,12 +3,12 @@
 
     <dist:module
         dist:instant="false"
-        dist:title="@string/module_name">
+        dist:title="@string/feature_introduction_name">
         <dist:delivery>
             <dist:install-time>
                 <dist:removable dist:value="true" />
             </dist:install-time>
         </dist:delivery>
-        <dist:fusing dist:include="false" />
+        <dist:fusing dist:include="true" />
     </dist:module>
 </manifest>

@@ -97,7 +97,10 @@ fun MyApplicationTheme(
     val view = LocalView.current
     if (!view.isInEditMode) {
         SideEffect {
-            (view.context as Activity).window.statusBarColor = colorScheme.primary.toArgb()
+            (view.context as Activity).window.apply {
+                statusBarColor = colorScheme.secondaryContainer.toArgb()
+                navigationBarColor = colorScheme.secondaryContainer.toArgb()
+            }
             ViewCompat.getWindowInsetsController(view)?.isAppearanceLightStatusBars = darkTheme
         }
     }

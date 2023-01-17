@@ -9,5 +9,5 @@ android {
 
 dependencies {
     implementation(libs.datastore.preferences)
-    implementation(libs.moshi.kotlin)
+    api(libs.moshi.kotlin)
 }
