@@ -3,7 +3,9 @@ package com.frestoinc.sample.featuredelivery.core.domain.delivery
 import com.google.android.play.core.splitinstall.SplitInstallManager
 import com.google.android.play.core.splitinstall.SplitInstallRequest
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class FeatureDeliveryManagerImpl @Inject constructor(
     private val splitInstallManager: SplitInstallManager
 ) : FeatureDeliveryManager {

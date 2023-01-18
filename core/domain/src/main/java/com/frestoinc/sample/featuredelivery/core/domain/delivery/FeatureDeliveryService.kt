@@ -34,7 +34,7 @@ class FeatureDeliveryService : Service() {
 
     @Inject
     @FeatureDeliveryNotificationChannelIdInt
-    internal var channelId: Int = 0
+    internal lateinit var channelId: String
 
     override fun onBind(p0: Intent?): IBinder? = null
 
@@ -52,7 +52,7 @@ class FeatureDeliveryService : Service() {
 
     private fun updateProgress(progressValue: Int) {
         notificationManager.notify(
-            channelId,
+            channelId.toInt(),
             createNotification(progressValue)
         )
     }
@@ -63,7 +63,7 @@ class FeatureDeliveryService : Service() {
         val pendingIntent =
             PendingIntent.getActivity(
                 this@FeatureDeliveryService,
-                channelId,
+                channelId.toInt(),
                 activityProvider.provideActivityIntent(),
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
             )

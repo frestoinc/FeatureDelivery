@@ -17,7 +17,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 object DeliveryNotificationModule {
 
     private const val NOTIFICATION_CHANNEL_ID_STRING = "Feature Delivery"
-    private const val NOTIFICATION_CHANNEL_ID = 46
+    private const val NOTIFICATION_CHANNEL_ID = "46"
 
     @Provides
     @FeatureDeliveryNotification
@@ -44,13 +44,13 @@ object DeliveryNotificationModule {
 
     @Provides
     @FeatureDeliveryNotificationChannelIdInt
-    fun provideNotificationChannelIdInt(): Int =
+    fun provideNotificationChannelIdInt(): String =
         NOTIFICATION_CHANNEL_ID
 
     @Provides
     @FeatureDeliveryNotificationChannel
     fun provideNotificationChannel(
-        @FeatureDeliveryNotificationChannel channelId: String,
+        @FeatureDeliveryNotificationChannelIdString channelId: String,
     ): NotificationChannel =
         NotificationChannel(
             channelId,
