@@ -3,7 +3,7 @@
     <string name="notification_download">Download started</string>
     <string name="notification_downloading">Downloading…</string>
     <string name="notification_downloaded">Download complete</string>
-    <string name="feature_introduction_name">Introduction Install Time</string>
-    <string name="feature_devicea_name">Device A</string>
-    <string name="feature_deviceb_name">Device B</string>
+    <string name="feature_introduction_name">installtime</string>
+    <string name="feature_devicea_name">devicea</string>
+    <string name="feature_deviceb_name">deviceb</string>
 </resources>
