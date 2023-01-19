@@ -26,7 +26,7 @@ class AndroidLibComposePlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             with(pluginManager) {
-                apply(ID_ANDROID_APPLICATION)
+                apply(ID_ANDROID_LIBRARY)
                 apply(ID_KOTLIN_ANDROID)
             }
 
