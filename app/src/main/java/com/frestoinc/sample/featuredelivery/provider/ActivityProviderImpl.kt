@@ -2,7 +2,7 @@ package com.frestoinc.sample.featuredelivery.provider
 
 import android.content.Context
 import android.content.Intent
-import com.frestoinc.sample.featuredelivery.FeatureDeliveryActivity
+import com.frestoinc.sample.featuredelivery.MainActivity
 import com.frestoinc.sample.featuredelivery.core.domain.provider.ActivityProvider
 
 class ActivityProviderImpl(
@@ -10,5 +10,5 @@ class ActivityProviderImpl(
 ) : ActivityProvider {
 
     override fun provideActivityIntent(): Intent =
-        Intent(appContext, FeatureDeliveryActivity::class.java)
+        Intent(appContext, MainActivity::class.java)
 }

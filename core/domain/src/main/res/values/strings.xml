@@ -3,7 +3,9 @@
     <string name="notification_download">Download started</string>
     <string name="notification_downloading">Downloading…</string>
     <string name="notification_downloaded">Download complete</string>
-    <string name="feature_introduction_name">installtime</string>
+    <string name="feature_onboarding_name">onboarding</string>
     <string name="feature_devicea_name">devicea</string>
     <string name="feature_deviceb_name">deviceb</string>
+    <string name="internetNotConnected">⚠️ You aren’t connected to the internet</string>
+
 </resources>

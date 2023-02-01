@@ -19,22 +19,32 @@ class PreferenceManagerImpl @Inject constructor(
 
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "preference_pb")
 
-    override val isInstallTimeEnabled: Flow<Boolean> =
-        read(PreferenceConstants.INSTALL_TIME_ENABLED, false)
+    override val onBoardingEnabled: Flow<Boolean> =
+        read(PreferenceConstants.ON_BOARDING_ENABLED, false)
 
-    override suspend fun setInstallTimeEnabled(value: Boolean) {
+    override suspend fun setOnBoardingEnabled(value: Boolean) {
         write(
-            key = PreferenceConstants.INSTALL_TIME_ENABLED,
+            key = PreferenceConstants.ON_BOARDING_ENABLED,
             value = value
         )
     }
 
-    override val isOnDemandEnabled: Flow<Boolean> =
-        read(PreferenceConstants.ON_DEMAND_ENABLED, false)
+    override val deviceAEnabled: Flow<Boolean> =
+        read(PreferenceConstants.DEVICE_A_ENABLED, false)
 
-    override suspend fun setOnDemandEnabled(value: Boolean) {
+    override suspend fun setDeviceAEnabled(value: Boolean) {
         write(
-            key = PreferenceConstants.ON_DEMAND_ENABLED,
+            key = PreferenceConstants.DEVICE_A_ENABLED,
+            value = value
+        )
+    }
+
+    override val deviceBEnabled: Flow<Boolean> =
+        read(PreferenceConstants.DEVICE_B_ENABLED, false)
+
+    override suspend fun setDeviceBEnabled(value: Boolean) {
+        write(
+            key = PreferenceConstants.DEVICE_B_ENABLED,
             value = value
         )
     }

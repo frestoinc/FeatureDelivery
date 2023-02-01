@@ -1,0 +1,30 @@
+package com.frestoinc.sample.featuredelivery.feature.deviceb.navigation
+
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavHostController
+import androidx.navigation.NavOptions
+import com.frestoinc.sample.featuredelivery.core.designsystem.navigator.FeatureNavGraph
+import com.frestoinc.sample.featuredelivery.feature.deviceb.ui.DeviceBScreen
+import com.frestoinc.sample.featuredelivery.navigation.FeatureAppRoute
+
+class DeviceBNavGraph : FeatureNavGraph {
+
+    override val featureRoute: String
+        get() = FeatureAppRoute.DEVICE_B.route
+
+    override fun navigateToFeatures(navController: NavHostController, navOptions: NavOptions?) {
+        navController.navigate(featureRoute, navOptions)
+    }
+
+    override fun moduleScreenComposable(
+        modifier: Modifier,
+        navController: NavHostController
+    ): @Composable (NavBackStackEntry) -> Unit = {
+        DeviceBScreen(
+            modifier = modifier,
+            navController = navController
+        )
+    }
+}

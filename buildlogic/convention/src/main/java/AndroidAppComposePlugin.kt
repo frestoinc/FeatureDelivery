@@ -38,6 +38,9 @@ class AndroidAppComposePlugin : Plugin<Project> {
             }
 
             dependencies {
+                add("api", project(":core:data"))
+                add("api", project(":core:domain"))
+                add("api", project(":core:designsystem"))
                 LIBRARY_COMPOSE_CORE.forEach {
                     "implementation"(it)
                 }

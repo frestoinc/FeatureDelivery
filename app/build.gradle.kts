@@ -6,14 +6,13 @@ plugins {
 android {
     namespace = "com.frestoinc.sample.featuredelivery"
     dynamicFeatures += setOf(
-        ":feature:introduction",
+        ":feature:onboarding",
         ":feature:devicea",
         ":feature:deviceb"
     )
 }
 
 dependencies {
-    api(project(":core:data"))
-    api(project(":core:domain"))
-    implementation(libs.androidx.hilt.navigation.compose)
+    api(libs.androidx.hilt.navigation.compose)
+    api(libs.androidx.lifecycle.runtimeCompose)
 }

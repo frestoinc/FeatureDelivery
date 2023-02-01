@@ -4,11 +4,15 @@ import kotlinx.coroutines.flow.Flow
 
 interface PreferenceManager {
 
-    val isInstallTimeEnabled: Flow<Boolean>
+    val onBoardingEnabled: Flow<Boolean>
 
-    suspend fun setInstallTimeEnabled(value: Boolean)
+    suspend fun setOnBoardingEnabled(value: Boolean)
 
-    val isOnDemandEnabled: Flow<Boolean>
+    val deviceAEnabled: Flow<Boolean>
 
-    suspend fun setOnDemandEnabled(value: Boolean)
+    suspend fun setDeviceAEnabled(value: Boolean)
+
+    val deviceBEnabled: Flow<Boolean>
+
+    suspend fun setDeviceBEnabled(value: Boolean)
 }

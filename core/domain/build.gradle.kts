@@ -10,4 +10,5 @@ android {
 dependencies {
     api(libs.play.featuredelivery)
     api(libs.play.featuredelivery.ktx)
+    api(libs.androidx.lifecycle.runtimeKtx)
 }

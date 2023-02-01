@@ -22,6 +22,7 @@ import com.frestoinc.sample.featuredelivery.configureGradleSetting
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
+import org.gradle.kotlin.dsl.dependencies
 
 class AndroidAppPlugin : Plugin<Project> {
 
@@ -35,6 +36,12 @@ class AndroidAppPlugin : Plugin<Project> {
             extensions.configure<ApplicationExtension> {
                 configureAndroidApplication(this)
                 configureGradleSetting(this)
+            }
+
+            dependencies {
+                add("api", project(":core:data"))
+                add("api", project(":core:domain"))
+                add("api", project(":core:designsystem"))
             }
         }
     }

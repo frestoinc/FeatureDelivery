@@ -25,6 +25,8 @@ internal fun Project.configureAndroidApplication(
 
     extension.apply {
         defaultConfig {
+            versionCode = APP_VERSION_CODE
+            versionName = APP_VERSION_NAME
             targetSdk = ANDROID_TARGET_SDK_VERSION
         }
     }

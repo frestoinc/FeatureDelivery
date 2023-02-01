@@ -18,6 +18,7 @@ rootProject.name = "FeatureDelivery"
 include(":app")
 include(":core:data")
 include(":core:domain")
-include(":feature:introduction")
+include(":feature:onboarding")
 include(":feature:devicea")
 include(":feature:deviceb")
+include(":core:designsystem")

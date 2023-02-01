@@ -4,7 +4,9 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 
 object PreferenceConstants {
 
-    val INSTALL_TIME_ENABLED = booleanPreferencesKey("INSTALL_TIME_ENABLED")
+    val ON_BOARDING_ENABLED = booleanPreferencesKey("ON_BOARDING_ENABLED")
 
-    val ON_DEMAND_ENABLED = booleanPreferencesKey("ON_DEMAND_ENABLED")
+    val DEVICE_A_ENABLED = booleanPreferencesKey("DEVICE_A_ENABLED")
+
+    val DEVICE_B_ENABLED = booleanPreferencesKey("DEVICE_B_ENABLED")
 }
