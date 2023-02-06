@@ -18,16 +18,31 @@ package com.frestoinc.sample.featuredelivery
 
 import com.android.build.api.dsl.ApplicationExtension
 import org.gradle.api.Project
+import java.io.FileInputStream
+import java.util.*
 
 internal fun Project.configureAndroidApplication(
     extension: ApplicationExtension,
 ) {
+
+    val keystoreProperties = Properties().apply {
+        load(FileInputStream(rootProject.file("keystore.properties")))
+    }
 
     extension.apply {
         defaultConfig {
             versionCode = APP_VERSION_CODE
             versionName = APP_VERSION_NAME
             targetSdk = ANDROID_TARGET_SDK_VERSION
+        }
+
+        signingConfigs {
+            create("release") {
+                keyAlias = keystoreProperties["keyAlias"] as String
+                keyPassword = keystoreProperties["keyPassword"] as String
+                storeFile = file(keystoreProperties["storeFile"] as String)
+                storePassword = keystoreProperties["storePassword"] as String
+            }
         }
 
         buildTypes {
@@ -39,6 +54,7 @@ internal fun Project.configureAndroidApplication(
                     getDefaultProguardFile("proguard-android-optimize.txt"),
                     "proguard-rules.pro"
                 )
+                signingConfig = signingConfigs.getByName("release")
             }
         }
     }
