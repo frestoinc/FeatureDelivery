@@ -94,9 +94,9 @@ internal val Project.COMPOSE_VERSION get() = version("composeCompiler")
 internal val Project.ANDROID_COMPILE_SDK_VERSION get() = versionInt("android.compileSdk")
 internal val Project.ANDROID_MIN_SDK_VERSION get() = versionInt("android.minSdk")
 internal val Project.ANDROID_TARGET_SDK_VERSION get() = ANDROID_COMPILE_SDK_VERSION
-internal val Project.APP_VERSION_CODE get() = versionInt("versionCode")
-internal val Project.APP_VERSION_NAME get() = "${version("versionName")} ${version("versionSuffix")}"
-
+internal val Project.APP_VERSION_CODE get() = version("versionCode")
+internal val Project.APP_VERSION_NAME get() = version("versionName")
+internal val Project.APP_VERSION_BUILD get() = versionInt("versionBuild")
 internal fun Project.library(key: String): String = getLibsExtension()
     .findLibrary(key)
     .get()

@@ -31,9 +31,10 @@ internal fun Project.configureAndroidApplication(
 
     extension.apply {
         defaultConfig {
-            versionCode = APP_VERSION_CODE
-            versionName = APP_VERSION_NAME
+            versionCode = APP_VERSION_BUILD
+            versionName = APP_VERSION_CODE
             targetSdk = ANDROID_TARGET_SDK_VERSION
+            setProperty("archivesBaseName", "${APP_VERSION_NAME}-v${versionName}(${versionCode})")
         }
 
         signingConfigs {
