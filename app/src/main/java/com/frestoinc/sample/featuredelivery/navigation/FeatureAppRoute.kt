@@ -18,7 +18,7 @@ enum class FeatureAppRoute(
     MAIN(
         route = "main",
         title = "Main",
-        navigationRoute = "com.frestoinc.sample.featuredelivery.ui.AppNavGraph"
+        navigationRoute = ""
     ),
     ON_BOARDING(
         route = "onboarding",
@@ -27,12 +27,12 @@ enum class FeatureAppRoute(
     ),
     DEVICE_A(
         route = "devicea",
-        title = "Device B",
+        title = "Device A",
         navigationRoute = "com.frestoinc.sample.featuredelivery.feature.devicea.navigation.DeviceANavGraph"
     ),
     DEVICE_B(
         route = "deviceb",
-        title = "Device A",
+        title = "Device B",
         navigationRoute = "com.frestoinc.sample.featuredelivery.feature.deviceb.navigation.DeviceBNavGraph"
     )
 }
