@@ -28,7 +28,7 @@ fun FeatureTopBar(
             }
         },
         title = {
-            Text(
+            FeatureBastText(
                 modifier = modifier,
                 text = title
             )
