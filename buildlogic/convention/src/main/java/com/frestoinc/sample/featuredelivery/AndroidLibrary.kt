@@ -28,5 +28,12 @@ internal fun Project.configureAndroidLibrary(
             targetSdk = ANDROID_TARGET_SDK_VERSION
             consumerProguardFiles("consumer-rules.pro")
         }
+
+        buildTypes {
+            release {
+                isMinifyEnabled = true
+                consumerProguardFile("consumer-rules.pro")
+            }
+        }
     }
 }

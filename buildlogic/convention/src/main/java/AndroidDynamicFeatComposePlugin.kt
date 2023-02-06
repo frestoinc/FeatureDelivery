@@ -32,7 +32,6 @@ class AndroidDynamicFeatComposePlugin : Plugin<Project> {
             extensions.configure<DynamicFeatureExtension> {
                 configureGradleSetting(this)
                 configureAndroidCompose(this)
-                configureAndroidCompose(this)
 
                 buildTypes {
                     release {
