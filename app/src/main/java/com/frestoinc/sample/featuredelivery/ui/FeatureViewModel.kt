@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import com.frestoinc.sample.featuredelivery.core.domain.delivery.events.FeatureDeliveryActionEvent
 import com.frestoinc.sample.featuredelivery.core.domain.delivery.events.FeatureDeliveryActionStatus
 import com.frestoinc.sample.featuredelivery.core.domain.delivery.installer.FeatureDeliveryInstaller
-import com.frestoinc.sample.featuredelivery.navigation.FeatureAppRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
@@ -17,8 +16,12 @@ class FeatureViewModel @Inject constructor(
     private val featureDeliveryInstaller: FeatureDeliveryInstaller
 ) : ViewModel() {
 
-    init {
-        Timber.e("${featureDeliveryInstaller.installedFeatures}")
+    companion object {
+        private const val LOAD_DELAY = 1 * 1000L
+    }
+
+    private val parseStatusResult: (FeatureDeliveryActionStatus) -> Unit = { status ->
+        Timber.e("status: $status")
     }
 
     private val _installedFeatures: MutableSet<String>
@@ -34,7 +37,7 @@ class FeatureViewModel @Inject constructor(
             }
             .onStart {
                 FeatureUiState.Loading
-                delay(2000)
+                delay(LOAD_DELAY)
             }
             .stateIn(
                 scope = viewModelScope,
@@ -49,88 +52,6 @@ class FeatureViewModel @Inject constructor(
         when (event) {
             is FeatureDeliveryActionEvent.StartDownload -> startDownload(event.moduleName)
             is FeatureDeliveryActionEvent.StopDownload -> stopDownload(event.taskId)
-        }
-    }
-
-    private val parseStatusResult: (FeatureDeliveryActionStatus) -> Unit = { status ->
-        when (status) {
-            is FeatureDeliveryActionStatus.FeatureDownloadState.FeatureNotDownload -> {
-                status.entity.featureNames.first { it == _currentFeatureModuleName.value }
-                    .let { module ->
-                        when (module) {
-                            FeatureAppRoute.ON_BOARDING.route -> {}
-                            FeatureAppRoute.DEVICE_A.route -> {}
-                            FeatureAppRoute.DEVICE_B.route -> {}
-                            else -> {}
-                        }
-                    }
-            }
-            is FeatureDeliveryActionStatus.FeatureDownloadState.FeatureDownloaded -> {
-                status.entity.featureNames.first { it == _currentFeatureModuleName.value }
-                    .let { module ->
-                        when (module) {
-                            FeatureAppRoute.ON_BOARDING.route -> {}
-                            FeatureAppRoute.DEVICE_A.route -> {}
-                            FeatureAppRoute.DEVICE_B.route -> {}
-                            else -> {}
-                        }
-                    }
-            }
-            is FeatureDeliveryActionStatus.FeatureDownloadState.FeatureDownloading -> {
-                status.entity.featureNames.first { it == _currentFeatureModuleName.value }
-                    .let { module ->
-                        when (module) {
-                            FeatureAppRoute.ON_BOARDING.route -> {}
-                            FeatureAppRoute.DEVICE_A.route -> {}
-                            FeatureAppRoute.DEVICE_B.route -> {}
-                            else -> {}
-                        }
-                    }
-            }
-            is FeatureDeliveryActionStatus.FeatureInstallState.FeatureInstalling -> {
-                status.entity.featureNames.first { it == _currentFeatureModuleName.value }
-                    .let { module ->
-                        when (module) {
-                            FeatureAppRoute.ON_BOARDING.route -> {}
-                            FeatureAppRoute.DEVICE_A.route -> {}
-                            FeatureAppRoute.DEVICE_B.route -> {}
-                            else -> {}
-                        }
-                    }
-            }
-            is FeatureDeliveryActionStatus.FeatureInstallState.FeatureInstalled -> {
-                status.entity.featureNames.first { it == _currentFeatureModuleName.value }
-                    .let { module ->
-                        when (module) {
-                            FeatureAppRoute.ON_BOARDING.route -> {}
-                            FeatureAppRoute.DEVICE_A.route -> {}
-                            FeatureAppRoute.DEVICE_B.route -> {}
-                            else -> {}
-                        }
-                    }
-            }
-            is FeatureDeliveryActionStatus.FeatureUnknown -> {
-                status.entity.featureNames.first { it == _currentFeatureModuleName.value }
-                    .let { module ->
-                        when (module) {
-                            FeatureAppRoute.ON_BOARDING.route -> {}
-                            FeatureAppRoute.DEVICE_A.route -> {}
-                            FeatureAppRoute.DEVICE_B.route -> {}
-                            else -> {}
-                        }
-                    }
-            }
-            is FeatureDeliveryActionStatus.FeatureError -> {
-                status.entity.featureNames.first { it == _currentFeatureModuleName.value }
-                    .let { module ->
-                        when (module) {
-                            FeatureAppRoute.ON_BOARDING.route -> {}
-                            FeatureAppRoute.DEVICE_A.route -> {}
-                            FeatureAppRoute.DEVICE_B.route -> {}
-                            else -> {}
-                        }
-                    }
-            }
         }
     }
 

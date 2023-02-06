@@ -1,6 +1,7 @@
 package com.frestoinc.sample.featuredelivery
 
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.consumedWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -17,6 +18,7 @@ import com.frestoinc.sample.featuredelivery.core.designsystem.ui.FeatureTopBar
 import com.frestoinc.sample.featuredelivery.core.domain.R
 import com.frestoinc.sample.featuredelivery.core.domain.network.NetworkMonitor
 import com.frestoinc.sample.featuredelivery.navigation.AppNavHost
+import com.frestoinc.sample.featuredelivery.navigation.FeatureAppRoute
 
 @Composable
 fun FeatureDeliveryApp(
@@ -34,11 +36,14 @@ fun FeatureDeliveryApp(
         contentWindowInsets = WindowInsets(0, 0, 0, 0),
         snackbarHost = { SnackbarHost(snackBarHostState) },
         topBar = {
-            FeatureTopBar(
-                title = appState.currentTopLevelDestination.title,
-                shouldShowBackButton = appState.currentDestination == null,
-                onBackClick = { appState.onBackClick() }
-            )
+            val destination = appState.currentTopLevelDestination
+            if (destination != null) {
+                FeatureTopBar(
+                    title = destination.title,
+                    shouldShowBackButton = destination != FeatureAppRoute.MAIN,
+                    onBackClick = { appState.onBackClick() }
+                )
+            }
         }
     ) { padding ->
 
@@ -56,7 +61,8 @@ fun FeatureDeliveryApp(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(4.dp)
-                .padding(padding),
+                .padding(padding)
+                .consumedWindowInsets(padding),
             appState = appState,
         )
     }

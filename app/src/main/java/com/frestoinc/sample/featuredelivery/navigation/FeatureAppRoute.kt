@@ -34,5 +34,11 @@ enum class FeatureAppRoute(
         route = "deviceb",
         title = "Device B",
         navigationRoute = "com.frestoinc.sample.featuredelivery.feature.deviceb.navigation.DeviceBNavGraph"
-    )
+    );
+
+    companion object {
+
+        fun String.toAppRoute(): FeatureAppRoute =
+            values().find { it.route == this } ?: MAIN
+    }
 }

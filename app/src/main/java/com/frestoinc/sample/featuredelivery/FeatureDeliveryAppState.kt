@@ -16,6 +16,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlin.reflect.full.createInstance
 
 class FeatureDeliveryAppState(
     val navController: NavHostController,
@@ -23,16 +24,17 @@ class FeatureDeliveryAppState(
     networkMonitor: NetworkMonitor,
 ) {
 
-    val currentDestination: NavDestination?
+    private val currentDestination: NavDestination?
         @Composable get() = navController
             .currentBackStackEntryAsState().value?.destination
 
-    val currentTopLevelDestination: FeatureAppRoute
+    val currentTopLevelDestination: FeatureAppRoute?
         @Composable get() = when (currentDestination?.route) {
+            FeatureAppRoute.MAIN.route -> FeatureAppRoute.MAIN
             FeatureAppRoute.ON_BOARDING.route -> FeatureAppRoute.ON_BOARDING
             FeatureAppRoute.DEVICE_A.route -> FeatureAppRoute.DEVICE_A
             FeatureAppRoute.DEVICE_B.route -> FeatureAppRoute.DEVICE_B
-            else -> FeatureAppRoute.MAIN
+            else -> null
         }
 
     val isOffline = networkMonitor.isOnline
@@ -43,9 +45,8 @@ class FeatureDeliveryAppState(
             initialValue = false
         )
 
-    val destinations: List<FeatureAppRoute> = FeatureAppRoute.values().toMutableList().apply {
-        remove(FeatureAppRoute.MAIN)
-    }.toList()
+    val destinations: List<FeatureAppRoute> =
+        FeatureAppRoute.values().filter { it != FeatureAppRoute.MAIN }
 
     fun navigateToTopLevelDestination(destination: FeatureAppRoute) {
         val topLevelNavOptions = navOptions {
@@ -61,9 +62,15 @@ class FeatureDeliveryAppState(
             // Restore state when re-selecting a previously selected item
             restoreState = true
         }
+        val navGraph =
+            runCatching {
+                Class.forName(destination.navigationRoute)?.kotlin?.createInstance() as FeatureNavGraph?
+            }.getOrNull() ?: return
 
-        (Class.forName(destination.navigationRoute).kotlin.objectInstance as FeatureNavGraph)
-            .navigateToFeatures(navController, topLevelNavOptions)
+        navGraph.navigateToFeatures(
+            navController,
+            topLevelNavOptions
+        )
     }
 
     fun onBackClick() {

@@ -7,7 +7,7 @@ import androidx.navigation.compose.composable
 import com.frestoinc.sample.featuredelivery.FeatureDeliveryAppState
 import com.frestoinc.sample.featuredelivery.core.designsystem.navigator.FeatureNavGraph
 import com.frestoinc.sample.featuredelivery.ui.FeatureScreen
-import timber.log.Timber
+import kotlin.reflect.full.createInstance
 
 @Composable
 fun AppNavHost(
@@ -20,29 +20,28 @@ fun AppNavHost(
         navController = appState.navController,
         startDestination = startDestinationRoute.route
     ) {
+        val destinations = appState.destinations.filter { it != startDestinationRoute }
+
         composable(route = startDestinationRoute.route) {
             FeatureScreen(
                 appState = appState,
-            ) {
-                appState.navigateToTopLevelDestination(FeatureAppRoute.ON_BOARDING)
-            }
+                availableFeatureList = destinations.map { it.route }
+            )
         }
 
-        appState.destinations.filter { it != startDestinationRoute }.forEach { route ->
+        destinations.forEach { route ->
             val navGraph =
-                Class.forName(route.navigationRoute).kotlin.objectInstance as FeatureNavGraph?
-            if (navGraph != null) {
-                Timber.e("not null: ${route.route}")
-                composable(
-                    route = route.route,
-                    content = navGraph.moduleScreenComposable(
-                        modifier = modifier,
-                        navController = appState.navController,
-                    )
+                runCatching {
+                    Class.forName(route.navigationRoute)?.kotlin?.createInstance() as FeatureNavGraph?
+                }.getOrNull() ?: return@NavHost
+
+            composable(
+                route = route.route,
+                content = navGraph.moduleScreenComposable(
+                    modifier = modifier,
+                    navController = appState.navController,
                 )
-            } else {
-                Timber.e("null for: ${route.route}")
-            }
+            )
         }
 
     }
