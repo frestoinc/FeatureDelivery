@@ -29,5 +29,17 @@ internal fun Project.configureAndroidApplication(
             versionName = APP_VERSION_NAME
             targetSdk = ANDROID_TARGET_SDK_VERSION
         }
+
+        buildTypes {
+            release {
+                isShrinkResources = true
+                isMinifyEnabled = true
+                isDebuggable = false
+                proguardFiles(
+                    getDefaultProguardFile("proguard-android-optimize.txt"),
+                    "proguard-rules.pro"
+                )
+            }
+        }
     }
 }
