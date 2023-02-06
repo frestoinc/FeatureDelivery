@@ -36,10 +36,7 @@ class AndroidDynamicFeatComposePlugin : Plugin<Project> {
 
                 buildTypes {
                     release {
-                        proguardFiles(
-                            getDefaultProguardFile("proguard-android-optimize.txt"),
-                            "proguard-rules-dynamic-features.pro"
-                        )
+                        proguardFiles("proguard-rules-dynamic-features.pro")
                     }
                 }
             }
