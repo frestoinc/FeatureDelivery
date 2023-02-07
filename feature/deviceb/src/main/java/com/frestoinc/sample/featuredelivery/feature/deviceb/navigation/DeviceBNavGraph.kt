@@ -1,5 +1,6 @@
 package com.frestoinc.sample.featuredelivery.feature.deviceb.navigation
 
+import androidx.annotation.Keep
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavBackStackEntry
@@ -9,6 +10,7 @@ import com.frestoinc.sample.featuredelivery.core.designsystem.navigator.FeatureN
 import com.frestoinc.sample.featuredelivery.feature.deviceb.ui.DeviceBScreen
 import com.frestoinc.sample.featuredelivery.navigation.FeatureAppRoute
 
+@Keep
 class DeviceBNavGraph : FeatureNavGraph {
 
     override val featureRoute: String
