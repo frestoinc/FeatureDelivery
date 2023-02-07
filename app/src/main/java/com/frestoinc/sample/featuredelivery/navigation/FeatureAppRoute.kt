@@ -1,5 +1,6 @@
 package com.frestoinc.sample.featuredelivery.navigation
 
+import androidx.annotation.Keep
 import com.frestoinc.sample.featuredelivery.core.designsystem.navigator.FeatureNavGraph
 
 /**
@@ -10,6 +11,7 @@ import com.frestoinc.sample.featuredelivery.core.designsystem.navigator.FeatureN
  * @property navigationRoute module package extending [FeatureNavGraph]
  *
  */
+@Keep
 enum class FeatureAppRoute(
     val route: String,
     val title: String,
