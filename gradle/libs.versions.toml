@@ -1,8 +1,8 @@
 [versions]
 #app
-versionBuild = "3"
+versionBuild = "4"
 versionName = "Feature Delivery POC"
-versionCode = "1.0.2"
+versionCode = "1.0.3"
 
 accompanist = "0.28.0"
 android-compileSdk = "33"
