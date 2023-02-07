@@ -9,10 +9,14 @@ import timber.log.Timber
 @HiltAndroidApp
 class MainApp : Application() {
 
+    override fun onCreate() {
+        super.onCreate()
+        if (BuildConfig.DEBUG)
+            Timber.plant(Timber.DebugTree())
+    }
+
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)
         SplitCompat.install(this)
-
-        Timber.plant(Timber.DebugTree())
     }
 }

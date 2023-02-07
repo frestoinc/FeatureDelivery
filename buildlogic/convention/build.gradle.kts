@@ -60,5 +60,9 @@ gradlePlugin {
             id = "featuredelivery.android.hilt"
             implementationClass = "AndroidHiltPlugin"
         }
+        register("firebase") {
+            id = "featuredelivery.firebase"
+            implementationClass = "FirebaseAppPlugin"
+        }
     }
 }

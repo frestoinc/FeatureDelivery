@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "57810658486",
+    "project_id": "featuredelivery",
+    "storage_bucket": "featuredelivery.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:57810658486:android:c1a309c8d7d3059c277217",
+        "android_client_info": {
+          "package_name": "com.frestoinc.sample.featuredelivery"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "57810658486-vfee8tcb36ndpn2jk7c0mgb0pbascbae.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgZeJDAk-Kz7zyZzPWB5zvQXMgEj51QbA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "57810658486-vfee8tcb36ndpn2jk7c0mgb0pbascbae.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

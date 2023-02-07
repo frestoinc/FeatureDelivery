@@ -81,6 +81,8 @@ internal val Project.ID_ANDROID_DYNAMIC_FEATURE get() = plugin("android-dynamic-
 internal val Project.ID_KOTLIN_ANDROID get() = plugin("kotlin.android")
 internal val Project.ID_KOTLIN_KAPT get() = plugin("kotlin.kapt")
 internal val Project.ID_HILT_ANDROID get() = plugin("hilt.android")
+internal val Project.ID_GMS_SERVICES get() = plugin("googleServices")
+internal val Project.ID_FIREBASE_CRASHLYTICS get() = plugin("crashlytics")
 
 internal fun Project.version(key: String): String = getLibsExtension()
     .findVersion(key)
@@ -133,4 +135,13 @@ internal val Project.LIBRARY_COMPOSE_CORE
             library("compose-icons"),
             library("compose-navigation"),
             library("compose-viewmodel"),
+        )
+
+internal val Project.FIREBASE_BOM
+    get() = library("firebaseBom")
+internal val Project.FIREBASE_CORE
+    get() =
+        listOf(
+            library("firebaseCrashlytics"),
+            library("firebaseAnalytics"),
         )

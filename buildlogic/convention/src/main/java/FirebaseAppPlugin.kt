@@ -15,35 +15,23 @@
  */
 
 import com.android.build.api.dsl.ApplicationExtension
-import com.frestoinc.sample.featuredelivery.*
+import com.frestoinc.sample.featuredelivery.ID_FIREBASE_CRASHLYTICS
+import com.frestoinc.sample.featuredelivery.ID_GMS_SERVICES
+import com.frestoinc.sample.featuredelivery.configureFirebaseSetting
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
-import org.gradle.kotlin.dsl.dependencies
 
-class AndroidAppComposePlugin : Plugin<Project> {
+class FirebaseAppPlugin : Plugin<Project> {
 
     override fun apply(target: Project) {
         with(target) {
             with(pluginManager) {
-                apply(ID_ANDROID_APPLICATION)
-                apply(ID_KOTLIN_ANDROID)
+                apply(ID_GMS_SERVICES)
+                apply(ID_FIREBASE_CRASHLYTICS)
             }
-
             extensions.configure<ApplicationExtension> {
-                configureAndroidApplication(this)
-                configureGradleSetting(this)
-                configureAndroidCompose(this)
-            }
-
-            dependencies {
-                add("api", project(":core:data"))
-                add("api", project(":core:domain"))
-                add("api", project(":core:designsystem"))
-                LIBRARY_COMPOSE_CORE.forEach {
-                    "implementation"(it)
-                }
-                "debugImplementation"(LIBRARY_COMPOSE_TOOLING)
+                configureFirebaseSetting(this)
             }
         }
     }
