@@ -34,7 +34,7 @@ fun AppNavHost(
                 runCatching {
                     Class.forName(route.navigationRoute)?.kotlin?.createInstance() as FeatureNavGraph?
                 }.getOrNull() ?: return@NavHost
-
+            appState.logEvent("route_added", route.route)
             composable(
                 route = route.route,
                 content = navGraph.moduleScreenComposable(

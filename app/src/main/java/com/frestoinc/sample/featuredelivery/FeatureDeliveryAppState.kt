@@ -9,6 +9,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
+import com.frestoinc.sample.featuredelivery.core.data.analytics.EventAnalytics
 import com.frestoinc.sample.featuredelivery.core.designsystem.navigator.FeatureNavGraph
 import com.frestoinc.sample.featuredelivery.core.domain.network.NetworkMonitor
 import com.frestoinc.sample.featuredelivery.navigation.FeatureAppRoute
@@ -20,6 +21,7 @@ import kotlin.reflect.full.createInstance
 
 class FeatureDeliveryAppState(
     val navController: NavHostController,
+    private val eventAnalytics: EventAnalytics,
     private val coroutineScope: CoroutineScope,
     networkMonitor: NetworkMonitor,
 ) {
@@ -66,7 +68,7 @@ class FeatureDeliveryAppState(
             runCatching {
                 Class.forName(destination.navigationRoute)?.kotlin?.createInstance() as FeatureNavGraph?
             }.getOrNull() ?: return
-
+        logEvent("navigation", destination.navigationRoute)
         navGraph.navigateToFeatures(
             navController,
             topLevelNavOptions
@@ -76,14 +78,23 @@ class FeatureDeliveryAppState(
     fun onBackClick() {
         navController.popBackStack()
     }
+
+    fun logEvent(event: String, param: String) {
+        eventAnalytics.logEvent(event, param)
+    }
+
+    fun logCrash(exception: Exception) {
+        eventAnalytics.logCrash(exception)
+    }
 }
 
 @Composable
 fun rememberFeatureDeliveryAppState(
     networkMonitor: NetworkMonitor,
+    eventAnalytics: EventAnalytics,
     coroutineScope: CoroutineScope = rememberCoroutineScope(),
     navController: NavHostController = rememberNavController()
 ): FeatureDeliveryAppState =
     remember(navController, coroutineScope, networkMonitor) {
-        FeatureDeliveryAppState(navController, coroutineScope, networkMonitor)
+        FeatureDeliveryAppState(navController, eventAnalytics, coroutineScope, networkMonitor)
     }

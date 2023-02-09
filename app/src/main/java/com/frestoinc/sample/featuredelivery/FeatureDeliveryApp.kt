@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.compose.ui.unit.dp
+import com.frestoinc.sample.featuredelivery.core.data.analytics.EventAnalytics
 import com.frestoinc.sample.featuredelivery.core.designsystem.extension.BaseLocaleText
 import com.frestoinc.sample.featuredelivery.core.designsystem.ui.FeatureTopBar
 import com.frestoinc.sample.featuredelivery.core.domain.R
@@ -22,8 +23,10 @@ import com.frestoinc.sample.featuredelivery.navigation.FeatureAppRoute
 @Composable
 fun FeatureDeliveryApp(
     networkMonitor: NetworkMonitor,
+    eventAnalytics: EventAnalytics,
     appState: FeatureDeliveryAppState = rememberFeatureDeliveryAppState(
-        networkMonitor = networkMonitor
+        networkMonitor = networkMonitor,
+        eventAnalytics = eventAnalytics
     )
 ) {
     val snackBarHostState = remember { SnackbarHostState() }
