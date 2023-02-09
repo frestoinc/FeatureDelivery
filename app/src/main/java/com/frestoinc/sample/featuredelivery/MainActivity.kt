@@ -1,5 +1,6 @@
 package com.frestoinc.sample.featuredelivery
 
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -7,6 +8,7 @@ import androidx.core.view.WindowCompat
 import com.frestoinc.sample.featuredelivery.analytics.EventAnalytics
 import com.frestoinc.sample.featuredelivery.core.designsystem.ui.theme.MyApplicationTheme
 import com.frestoinc.sample.featuredelivery.core.domain.network.NetworkMonitor
+import com.google.android.play.core.splitcompat.SplitCompat
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -30,5 +32,10 @@ class MainActivity : ComponentActivity() {
                 )
             }
         }
+    }
+
+    override fun attachBaseContext(base: Context?) {
+        super.attachBaseContext(base)
+        SplitCompat.install(this)
     }
 }
