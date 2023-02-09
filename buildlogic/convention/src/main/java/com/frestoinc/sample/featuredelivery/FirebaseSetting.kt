@@ -16,13 +16,13 @@
 
 package com.frestoinc.sample.featuredelivery
 
-import com.android.build.api.dsl.ApplicationExtension
+import com.android.build.api.dsl.CommonExtension
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
 
 @Suppress("UnstableApiUsage")
 internal fun Project.configureFirebaseSetting(
-    extension: ApplicationExtension,
+    extension: CommonExtension<*, *, *, *>,
 ) {
     extension.apply {
         dependencies {
