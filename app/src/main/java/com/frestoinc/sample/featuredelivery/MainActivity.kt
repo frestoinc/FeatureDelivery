@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.core.view.WindowCompat
-import com.frestoinc.sample.featuredelivery.core.data.analytics.EventAnalytics
+import com.frestoinc.sample.featuredelivery.analytics.EventAnalytics
 import com.frestoinc.sample.featuredelivery.core.designsystem.ui.theme.MyApplicationTheme
 import com.frestoinc.sample.featuredelivery.core.domain.network.NetworkMonitor
 import dagger.hilt.android.AndroidEntryPoint

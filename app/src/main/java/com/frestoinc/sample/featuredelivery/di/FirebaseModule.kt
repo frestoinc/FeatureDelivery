@@ -1,4 +1,4 @@
-package com.frestoinc.sample.featuredelivery.core.data.di
+package com.frestoinc.sample.featuredelivery.di
 
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics

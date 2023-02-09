@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import com.android.build.api.dsl.LibraryExtension
+import com.android.build.api.dsl.ApplicationExtension
 import com.frestoinc.sample.featuredelivery.ID_FIREBASE_CRASHLYTICS
 import com.frestoinc.sample.featuredelivery.ID_GMS_SERVICES
 import com.frestoinc.sample.featuredelivery.configureFirebaseSetting
@@ -30,7 +30,7 @@ class FirebaseAppPlugin : Plugin<Project> {
                 apply(ID_GMS_SERVICES)
                 apply(ID_FIREBASE_CRASHLYTICS)
             }
-            extensions.configure<LibraryExtension> {
+            extensions.configure<ApplicationExtension> {
                 configureFirebaseSetting(this)
             }
         }

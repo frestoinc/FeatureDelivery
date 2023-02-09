@@ -1,7 +1,7 @@
-package com.frestoinc.sample.featuredelivery.core.data.di
+package com.frestoinc.sample.featuredelivery.di
 
-import com.frestoinc.sample.featuredelivery.core.data.analytics.EventAnalytics
-import com.frestoinc.sample.featuredelivery.core.data.analytics.EventAnalyticsImpl
+import com.frestoinc.sample.featuredelivery.analytics.EventAnalytics
+import com.frestoinc.sample.featuredelivery.analytics.EventAnalyticsImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -12,7 +12,6 @@ import dagger.hilt.components.SingletonComponent
 abstract class AnalyticsModule {
 
     @Binds
-    @PreferenceDataManager
     abstract fun bindsEventAnalytics(
         eventAnalyticsImpl: EventAnalyticsImpl
     ): EventAnalytics

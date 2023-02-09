@@ -1,7 +1,6 @@
 plugins {
     id("featuredelivery.android.lib")
     id("featuredelivery.android.hilt")
-    id("featuredelivery.firebase")
 }
 
 android {

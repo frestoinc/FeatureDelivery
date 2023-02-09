@@ -1,5 +1,4 @@
-package com.frestoinc.sample.featuredelivery.core.data.analytics
-
+package com.frestoinc.sample.featuredelivery.analytics
 
 import com.frestoinc.sample.featuredelivery.core.data.BuildConfig
 import com.google.firebase.analytics.FirebaseAnalytics
@@ -14,10 +13,6 @@ class EventAnalyticsImpl @Inject constructor(
     private val analytics: FirebaseAnalytics,
     private val crashlytics: FirebaseCrashlytics
 ) : EventAnalytics {
-
-    companion object {
-        private const val NAVIGATION_EVENT_KEY = "navigation"
-    }
 
     override fun logEvent(event: String, param: String) {
         if (BuildConfig.DEBUG) {

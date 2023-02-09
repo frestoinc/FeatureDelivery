@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.compose.ui.unit.dp
-import com.frestoinc.sample.featuredelivery.core.data.analytics.EventAnalytics
+import com.frestoinc.sample.featuredelivery.analytics.EventAnalytics
 import com.frestoinc.sample.featuredelivery.core.designsystem.extension.BaseLocaleText
 import com.frestoinc.sample.featuredelivery.core.designsystem.ui.FeatureTopBar
 import com.frestoinc.sample.featuredelivery.core.domain.R

@@ -1,6 +1,7 @@
 plugins {
     id("featuredelivery.android.app.compose")
     id("featuredelivery.android.hilt")
+    id("featuredelivery.firebase")
 }
 
 android {

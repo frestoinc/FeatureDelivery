@@ -9,7 +9,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
-import com.frestoinc.sample.featuredelivery.core.data.analytics.EventAnalytics
+import com.frestoinc.sample.featuredelivery.analytics.EventAnalytics
 import com.frestoinc.sample.featuredelivery.core.designsystem.navigator.FeatureNavGraph
 import com.frestoinc.sample.featuredelivery.core.domain.network.NetworkMonitor
 import com.frestoinc.sample.featuredelivery.navigation.FeatureAppRoute

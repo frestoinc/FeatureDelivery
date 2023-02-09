@@ -1,4 +1,4 @@
-package com.frestoinc.sample.featuredelivery.core.data.analytics
+package com.frestoinc.sample.featuredelivery.analytics
 
 interface EventAnalytics {
 
