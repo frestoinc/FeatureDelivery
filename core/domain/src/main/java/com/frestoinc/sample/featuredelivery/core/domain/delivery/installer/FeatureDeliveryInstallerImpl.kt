@@ -3,6 +3,9 @@ package com.frestoinc.sample.featuredelivery.core.domain.delivery.installer
 import com.frestoinc.sample.featuredelivery.core.domain.delivery.events.FeatureDeliveryActionStatus
 import com.google.android.play.core.splitinstall.SplitInstallManager
 import com.google.android.play.core.splitinstall.SplitInstallRequest
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -87,11 +90,11 @@ class FeatureDeliveryInstallerImpl @Inject constructor(
         },
     )
 
-    override val installedFeatures: Set<String>
-        get() = splitInstallManager.installedModules
+    private val _installedFeatures: MutableStateFlow<Set<String>> =
+        MutableStateFlow(splitInstallManager.installedModules)
 
-    override fun isFeatureInstalled(value: String): Boolean =
-        installedFeatures.contains(value)
+    override val installedFeatures: StateFlow<Set<String>> =
+        _installedFeatures.asStateFlow()
 
     override fun downloadFeature(
         vararg modules: String,
@@ -99,6 +102,13 @@ class FeatureDeliveryInstallerImpl @Inject constructor(
     ) {
         registerListener(onStateChanged)
         splitInstallManager.startInstall(createRequest(modules = modules))
+    }
+
+    override fun deleteFeature(module: String) {
+        splitInstallManager.deferredUninstall(listOf(module))
+            .addOnCompleteListener {
+                _installedFeatures.value = splitInstallManager.installedModules
+            }
     }
 
     override fun cancelDownload(taskId: Int) {
@@ -115,6 +125,7 @@ class FeatureDeliveryInstallerImpl @Inject constructor(
         _stateChangedEmitter = null
         _currentDownloadModuleName.clear()
         splitInstallManager.unregisterListener(_splitInstallListener)
+        _installedFeatures.value = splitInstallManager.installedModules
     }
 
     private fun createRequest(vararg modules: String): SplitInstallRequest {

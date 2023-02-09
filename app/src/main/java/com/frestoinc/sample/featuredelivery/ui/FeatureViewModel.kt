@@ -8,7 +8,6 @@ import com.frestoinc.sample.featuredelivery.core.domain.delivery.installer.Featu
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -21,37 +20,42 @@ class FeatureViewModel @Inject constructor(
     }
 
     private val parseStatusResult: (FeatureDeliveryActionStatus) -> Unit = { status ->
-        Timber.e("status: $status")
+        _featureUiState.value = when (status) {
+            is FeatureDeliveryActionStatus.FeatureInstallState.FeatureInstalled ->
+                FeatureUiState.FeaturesAvailable(featureDeliveryInstaller.installedFeatures.value)
+            is FeatureDeliveryActionStatus.FeatureError ->
+                FeatureUiState.FeatureEmpty
+            else -> FeatureUiState.Loading
+
+        }
     }
 
-    private val _installedFeatures: MutableSet<String>
-        get() = featureDeliveryInstaller.installedFeatures.toMutableSet()
-    val featureUiState: StateFlow<FeatureUiState> =
-        flowOf(_installedFeatures)
-            .map {
-                if (it.isEmpty()) {
-                    FeatureUiState.FeatureError
-                } else {
-                    FeatureUiState.FeaturesAvailable(it)
-                }
-            }
-            .onStart {
-                FeatureUiState.Loading
-                delay(LOAD_DELAY)
-            }
-            .stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.Eagerly,
-                initialValue = FeatureUiState.Loading
-            )
+    private val _featureUiState: MutableStateFlow<FeatureUiState> =
+        MutableStateFlow(FeatureUiState.Loading)
 
-    private val _currentFeatureModuleName: MutableStateFlow<String?> =
-        MutableStateFlow(null)
+    val featureUiState: StateFlow<FeatureUiState> =
+        _featureUiState.asStateFlow().combine(
+            featureDeliveryInstaller.installedFeatures
+        ) { _: FeatureUiState, b: Set<String> ->
+            if (b.isEmpty()) {
+                FeatureUiState.FeatureEmpty
+            } else {
+                FeatureUiState.FeaturesAvailable(b)
+            }
+        }.onStart {
+            delay(LOAD_DELAY)
+            emit(FeatureUiState.Loading)
+        }.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.Eagerly,
+            initialValue = FeatureUiState.Loading
+        )
 
     fun invokeEvent(event: FeatureDeliveryActionEvent) {
         when (event) {
             is FeatureDeliveryActionEvent.StartDownload -> startDownload(event.moduleName)
             is FeatureDeliveryActionEvent.StopDownload -> stopDownload(event.taskId)
+            is FeatureDeliveryActionEvent.Uninstall -> uninstallModule(event.moduleName)
         }
     }
 
@@ -65,10 +69,14 @@ class FeatureViewModel @Inject constructor(
     private fun stopDownload(taskId: Int) {
         featureDeliveryInstaller.cancelDownload(taskId)
     }
+
+    private fun uninstallModule(module: String) {
+        featureDeliveryInstaller.deleteFeature(module)
+    }
 }
 
 sealed interface FeatureUiState {
     object Loading : FeatureUiState
-    object FeatureError : FeatureUiState
+    object FeatureEmpty : FeatureUiState
     data class FeaturesAvailable(val modules: Set<String>) : FeatureUiState
 }

@@ -42,13 +42,17 @@ fun FeatureScreen(
                 availableFeatureList = availableFeatureList,
                 onNavigateToModule = { moduleName ->
                     appState.navigateToTopLevelDestination(moduleName.toAppRoute())
+                }, onRequestUninstallModule = { moduleName ->
+                    featureViewModel.invokeEvent(
+                        FeatureDeliveryActionEvent.Uninstall(moduleName)
+                    )
                 }, onRequestOnBoardingModule = { moduleName ->
                     featureViewModel.invokeEvent(
                         FeatureDeliveryActionEvent.StartDownload(moduleName)
                     )
                 })
-        is FeatureUiState.FeatureError ->
-            FeatureNotInstalledState(
+        is FeatureUiState.FeatureEmpty ->
+            FeatureEmptyState(
                 modifier = modifier,
                 missingFeatureList = appState.destinations.map { it.route }
             ) { moduleName ->
@@ -78,7 +82,7 @@ fun FeatureLoadingState(
 }
 
 @Composable
-fun FeatureNotInstalledState(
+fun FeatureEmptyState(
     modifier: Modifier = Modifier,
     missingFeatureList: List<String> = emptyList(),
     onRequestOnBoardingModule: (String) -> Unit = {}
@@ -114,28 +118,45 @@ fun FeatureInstallState(
     installedFeatureList: List<String> = emptyList(),
     availableFeatureList: List<String> = emptyList(),
     onNavigateToModule: (String) -> Unit = {},
+    onRequestUninstallModule: (String) -> Unit = {},
     onRequestOnBoardingModule: (String) -> Unit = {}
 ) {
-    LazyColumn(
+
+    Column(
         modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        items(installedFeatureList) { moduleName ->
-            Button(
-                modifier = modifier.padding(10.dp),
-                onClick = { onNavigateToModule(moduleName) }
+        installedFeatureList.forEach { moduleName ->
+            Row(
+                modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceEvenly,
             ) {
-                FeatureBastText(text = "$moduleName module")
+                Button(
+                    modifier = modifier
+                        .padding(10.dp),
+                    onClick = { onNavigateToModule(moduleName) }
+                ) {
+                    FeatureBastText(text = "Navigate To\n$moduleName module")
+                }
+                Button(
+                    modifier = modifier
+                        .padding(10.dp),
+                    onClick = { onRequestUninstallModule(moduleName) }
+                ) {
+                    FeatureBastText(text = "Uninstall\n$moduleName module")
+                }
             }
+
         }
-        val filteredList = availableFeatureList.filter { it !in installedFeatureList }
-        items(filteredList) { moduleName ->
+
+        availableFeatureList.filter { it !in installedFeatureList }.forEach { moduleName ->
             Button(
                 modifier = modifier.padding(10.dp),
                 onClick = { onRequestOnBoardingModule(moduleName) }
             ) {
-                FeatureBastText(text = "Click to download $moduleName module")
+                FeatureBastText(text = "Click to download\n$moduleName module")
             }
         }
     }
@@ -151,8 +172,8 @@ private fun FeatureLoadingStatePreview() {
 @Preview("default", showSystemUi = true)
 @Preview("dark theme", uiMode = Configuration.UI_MODE_NIGHT_YES, showSystemUi = true)
 @Composable
-private fun FeatureNotInstalledStatePreview() {
-    FeatureNotInstalledState(
+private fun FeatureEmptyStatePreview() {
+    FeatureEmptyState(
         missingFeatureList = listOf(
             "main",
             "OnBoarding",
