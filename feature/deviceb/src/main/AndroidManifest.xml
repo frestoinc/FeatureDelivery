@@ -4,6 +4,7 @@
     <dist:module dist:title="@string/feature_deviceb_name">
         <dist:delivery>
             <dist:on-demand />
+            <dist:removable dist:value="true" />
         </dist:delivery>
         <dist:fusing dist:include="true" />
     </dist:module>
