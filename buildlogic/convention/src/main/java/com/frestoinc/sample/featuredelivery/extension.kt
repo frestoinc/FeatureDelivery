@@ -123,8 +123,6 @@ internal val Project.LIBRARY_JUNIT_ESPRESSO
 internal val Project.LIBRARY_COMPOSE_BOM
     get() = library("compose-bom")
 
-internal val Project.LIBRARY_COMPOSE_TOOLING
-    get() = library("compose-tooling-debug")
 internal val Project.LIBRARY_COMPOSE_CORE
     get() =
         listOf(
@@ -135,6 +133,7 @@ internal val Project.LIBRARY_COMPOSE_CORE
             library("compose-icons"),
             library("compose-navigation"),
             library("compose-viewmodel"),
+            library("compose-tooling-debug"),
         )
 
 internal val Project.FIREBASE_BOM

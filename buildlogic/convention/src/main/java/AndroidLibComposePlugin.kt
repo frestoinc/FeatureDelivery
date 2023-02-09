@@ -40,7 +40,6 @@ class AndroidLibComposePlugin : Plugin<Project> {
                 LIBRARY_COMPOSE_CORE.forEach {
                     "implementation"(it)
                 }
-                "debugImplementation"(LIBRARY_COMPOSE_TOOLING)
             }
         }
     }
