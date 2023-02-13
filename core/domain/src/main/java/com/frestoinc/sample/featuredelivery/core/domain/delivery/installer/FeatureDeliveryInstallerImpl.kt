@@ -16,11 +16,11 @@ class FeatureDeliveryInstallerImpl @Inject constructor(
 
     private var _stateChangedEmitter: ((FeatureDeliveryActionStatus) -> Unit)? = null
 
-    private var _currentDownloadModuleName: MutableList<String> = mutableListOf()
+    private var _currentDownloadModuleName: String = ""
 
     private val _splitInstallListener = createSplitInstallListener(
         onInstalling = { entity ->
-            if (entity.featureNames.containsAll(_currentDownloadModuleName)) {
+            if (entity.featureNames.contains(_currentDownloadModuleName)) {
                 _stateChangedEmitter?.invoke(
                     FeatureDeliveryActionStatus.FeatureInstallState.FeatureInstalling(
                         entity
@@ -29,7 +29,7 @@ class FeatureDeliveryInstallerImpl @Inject constructor(
             }
         },
         onInstalled = { entity ->
-            if (entity.featureNames.containsAll(_currentDownloadModuleName)) {
+            if (entity.featureNames.contains(_currentDownloadModuleName)) {
                 _stateChangedEmitter?.invoke(
                     FeatureDeliveryActionStatus.FeatureInstallState.FeatureInstalled(
                         entity
@@ -39,7 +39,7 @@ class FeatureDeliveryInstallerImpl @Inject constructor(
             }
         },
         onDownloaded = { entity ->
-            if (entity.featureNames.containsAll(_currentDownloadModuleName)) {
+            if (entity.featureNames.contains(_currentDownloadModuleName)) {
                 _stateChangedEmitter?.invoke(
                     FeatureDeliveryActionStatus.FeatureDownloadState.FeatureDownloaded(
                         entity
@@ -48,18 +48,18 @@ class FeatureDeliveryInstallerImpl @Inject constructor(
             }
         },
         onCanceling = { entity ->
-            if (entity.featureNames.containsAll(_currentDownloadModuleName)) {
+            if (entity.featureNames.contains(_currentDownloadModuleName)) {
                 _stateChangedEmitter?.invoke(FeatureDeliveryActionStatus.FeatureError(entity))
             }
         },
         onCanceled = { entity ->
-            if (entity.featureNames.containsAll(_currentDownloadModuleName)) {
+            if (entity.featureNames.contains(_currentDownloadModuleName)) {
                 _stateChangedEmitter?.invoke(FeatureDeliveryActionStatus.FeatureError(entity))
                 unregisterListener()
             }
         },
         onDownloading = { entity, value ->
-            if (entity.featureNames.containsAll(_currentDownloadModuleName)) {
+            if (entity.featureNames.contains(_currentDownloadModuleName)) {
                 _stateChangedEmitter?.invoke(
                     FeatureDeliveryActionStatus.FeatureDownloadState.FeatureDownloading(
                         entity,
@@ -69,7 +69,7 @@ class FeatureDeliveryInstallerImpl @Inject constructor(
             }
         },
         onFailed = { entity, errorCode ->
-            if (entity.featureNames.containsAll(_currentDownloadModuleName)) {
+            if (entity.featureNames.contains(_currentDownloadModuleName)) {
                 _stateChangedEmitter?.invoke(
                     FeatureDeliveryActionStatus.FeatureError(
                         entity, FeatureDeliveryException(errorCode)
@@ -79,7 +79,7 @@ class FeatureDeliveryInstallerImpl @Inject constructor(
             }
         },
         onUnknown = { entity, status ->
-            if (entity.featureNames.containsAll(_currentDownloadModuleName)) {
+            if (entity.featureNames.contains(_currentDownloadModuleName)) {
                 _stateChangedEmitter?.invoke(
                     FeatureDeliveryActionStatus.FeatureUnknown(
                         entity,
@@ -97,11 +97,15 @@ class FeatureDeliveryInstallerImpl @Inject constructor(
         _installedFeatures.asStateFlow()
 
     override fun downloadFeature(
-        vararg modules: String,
+        module: String,
         onStateChanged: (FeatureDeliveryActionStatus) -> Unit
     ) {
         registerListener(onStateChanged)
-        splitInstallManager.startInstall(createRequest(modules = modules))
+        _currentDownloadModuleName = module
+        splitInstallManager.startInstall(createRequest(module))
+            .addOnCompleteListener {
+                _installedFeatures.value = splitInstallManager.installedModules
+            }
     }
 
     override fun deleteFeature(module: String) {
@@ -123,19 +127,15 @@ class FeatureDeliveryInstallerImpl @Inject constructor(
 
     private fun unregisterListener() {
         _stateChangedEmitter = null
-        _currentDownloadModuleName.clear()
+        _currentDownloadModuleName = ""
         splitInstallManager.unregisterListener(_splitInstallListener)
         _installedFeatures.value = splitInstallManager.installedModules
     }
 
-    private fun createRequest(vararg modules: String): SplitInstallRequest {
-        if (modules.isEmpty()) throw IllegalArgumentException("module name cannot be empty")
-        return with(SplitInstallRequest.newBuilder()) {
-            modules.forEach { moduleName ->
-                _currentDownloadModuleName.add(moduleName)
-                addModule(moduleName)
-            }
-            build()
-        }
+    private fun createRequest(module: String): SplitInstallRequest {
+        if (module.isEmpty()) throw IllegalArgumentException("module name cannot be empty")
+        return SplitInstallRequest.newBuilder()
+            .addModule(module)
+            .build()
     }
 }

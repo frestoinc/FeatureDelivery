@@ -1,6 +1,7 @@
 package com.frestoinc.sample.featuredelivery
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.NavDestination
@@ -19,10 +20,22 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlin.reflect.full.createInstance
 
+@Composable
+fun rememberFeatureDeliveryAppState(
+    networkMonitor: NetworkMonitor,
+    eventAnalytics: EventAnalytics,
+    coroutineScope: CoroutineScope = rememberCoroutineScope(),
+    navController: NavHostController = rememberNavController()
+): FeatureDeliveryAppState =
+    remember(navController, coroutineScope, networkMonitor) {
+        FeatureDeliveryAppState(navController, eventAnalytics, coroutineScope, networkMonitor)
+    }
+
+@Stable
 class FeatureDeliveryAppState(
     val navController: NavHostController,
-    private val eventAnalytics: EventAnalytics,
-    private val coroutineScope: CoroutineScope,
+    val eventAnalytics: EventAnalytics,
+    val coroutineScope: CoroutineScope,
     networkMonitor: NetworkMonitor,
 ) {
 
@@ -47,10 +60,7 @@ class FeatureDeliveryAppState(
             initialValue = false
         )
 
-    val destinations: List<FeatureAppRoute> =
-        FeatureAppRoute.values().filter { it != FeatureAppRoute.MAIN }
-
-    fun navigateToTopLevelDestination(destination: FeatureAppRoute) {
+    fun navigateToTopLevelDestination(route: FeatureAppRoute) {
         val topLevelNavOptions = navOptions {
             // Pop up to the start destination of the graph to
             // avoid building up a large stack of destinations
@@ -66,9 +76,9 @@ class FeatureDeliveryAppState(
         }
         val navGraph =
             runCatching {
-                Class.forName(destination.navigationRoute)?.kotlin?.createInstance() as FeatureNavGraph?
+                Class.forName(route.navigationRoute)?.kotlin?.createInstance() as FeatureNavGraph?
             }.getOrNull() ?: return
-        logEvent("navigation", destination.navigationRoute)
+
         navGraph.navigateToFeatures(
             navController,
             topLevelNavOptions
@@ -87,14 +97,3 @@ class FeatureDeliveryAppState(
         eventAnalytics.logCrash(exception)
     }
 }
-
-@Composable
-fun rememberFeatureDeliveryAppState(
-    networkMonitor: NetworkMonitor,
-    eventAnalytics: EventAnalytics,
-    coroutineScope: CoroutineScope = rememberCoroutineScope(),
-    navController: NavHostController = rememberNavController()
-): FeatureDeliveryAppState =
-    remember(navController, coroutineScope, networkMonitor) {
-        FeatureDeliveryAppState(navController, eventAnalytics, coroutineScope, networkMonitor)
-    }

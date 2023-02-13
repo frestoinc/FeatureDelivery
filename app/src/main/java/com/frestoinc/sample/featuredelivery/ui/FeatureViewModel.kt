@@ -33,6 +33,9 @@ class FeatureViewModel @Inject constructor(
     private val _featureUiState: MutableStateFlow<FeatureUiState> =
         MutableStateFlow(FeatureUiState.Loading)
 
+    val installedModules: Set<String>
+        get() = featureDeliveryInstaller.installedFeatures.value
+
     val featureUiState: StateFlow<FeatureUiState> =
         _featureUiState.asStateFlow().combine(
             featureDeliveryInstaller.installedFeatures
@@ -61,7 +64,7 @@ class FeatureViewModel @Inject constructor(
 
     private fun startDownload(module: String) {
         featureDeliveryInstaller.downloadFeature(
-            modules = arrayOf(module),
+            module = module,
             onStateChanged = parseStatusResult
         )
     }

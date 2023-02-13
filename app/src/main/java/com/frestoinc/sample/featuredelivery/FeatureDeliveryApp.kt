@@ -48,7 +48,6 @@ fun FeatureDeliveryApp(
             }
         }
     ) { padding ->
-
         val isOffline by appState.isOffline.collectAsState()
         val notConnectedString =
             BaseLocaleText.FromResource(R.string.internetNotConnected).asString()

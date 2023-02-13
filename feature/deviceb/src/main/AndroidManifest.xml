@@ -1,10 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:dist="http://schemas.android.com/apk/distribution">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:dist="http://schemas.android.com/apk/distribution">
+
+    <application>
+        <activity
+            android:name=".ui.DeviceBActivity"
+            android:exported="true"
+            android:theme="@android:style/Theme.Material.Light.NoActionBar">
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="com.frestoinc.sample.featuredelivery.feature.deviceb"
+                    android:scheme="app" />
+            </intent-filter>
+
+        </activity>
+    </application>
 
     <dist:module dist:title="@string/feature_deviceb_name">
         <dist:delivery>
             <dist:on-demand />
-            <dist:removable dist:value="true" />
         </dist:delivery>
         <dist:fusing dist:include="true" />
     </dist:module>

@@ -8,7 +8,7 @@ interface FeatureDeliveryInstaller {
     val installedFeatures: StateFlow<Set<String>>
 
     fun downloadFeature(
-        vararg modules: String,
+        module: String,
         onStateChanged: (FeatureDeliveryActionStatus) -> Unit
     )
 

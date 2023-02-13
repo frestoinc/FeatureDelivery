@@ -15,7 +15,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.frestoinc.sample.featuredelivery.FeatureDeliveryAppState
 import com.frestoinc.sample.featuredelivery.core.designsystem.ui.FeatureBastText
 import com.frestoinc.sample.featuredelivery.core.domain.delivery.events.FeatureDeliveryActionEvent
 import com.frestoinc.sample.featuredelivery.navigation.FeatureAppRoute
@@ -24,9 +23,9 @@ import com.frestoinc.sample.featuredelivery.navigation.FeatureAppRoute.Companion
 @Composable
 fun FeatureScreen(
     modifier: Modifier = Modifier,
-    appState: FeatureDeliveryAppState,
     featureViewModel: FeatureViewModel = hiltViewModel(),
-    availableFeatureList: List<String> = emptyList(),
+    availableFeatureList: List<FeatureAppRoute> = emptyList(),
+    onNavigateToModule: (FeatureAppRoute) -> Unit = {},
 ) {
     val featureUiState by featureViewModel.featureUiState.collectAsStateWithLifecycle()
 
@@ -35,29 +34,32 @@ fun FeatureScreen(
             FeatureLoadingState(
                 modifier = modifier
             )
-        is FeatureUiState.FeaturesAvailable ->
+        is FeatureUiState.FeaturesAvailable -> {
             FeatureInstallState(
                 modifier = modifier,
-                installedFeatureList = (featureUiState as FeatureUiState.FeaturesAvailable).modules.toList(),
+                installedFeatureList = (featureUiState as FeatureUiState.FeaturesAvailable).modules.map {
+                    it.toAppRoute()
+                },
                 availableFeatureList = availableFeatureList,
-                onNavigateToModule = { moduleName ->
-                    appState.navigateToTopLevelDestination(moduleName.toAppRoute())
-                }, onRequestUninstallModule = { moduleName ->
+                onNavigateToModule = onNavigateToModule,
+                onRequestToUninstallModule = { appRoute ->
                     featureViewModel.invokeEvent(
-                        FeatureDeliveryActionEvent.Uninstall(moduleName)
+                        FeatureDeliveryActionEvent.Uninstall(appRoute.route)
                     )
-                }, onRequestOnBoardingModule = { moduleName ->
+                },
+                onRequestToInstallModule = { appRoute ->
                     featureViewModel.invokeEvent(
-                        FeatureDeliveryActionEvent.StartDownload(moduleName)
+                        FeatureDeliveryActionEvent.StartDownload(appRoute.route)
                     )
                 })
+        }
         is FeatureUiState.FeatureEmpty ->
             FeatureEmptyState(
                 modifier = modifier,
-                missingFeatureList = appState.destinations.map { it.route }
-            ) { moduleName ->
+                missingFeatureList = FeatureAppRoute.featureDestinations
+            ) { appRoute ->
                 featureViewModel.invokeEvent(
-                    FeatureDeliveryActionEvent.StartDownload(moduleName)
+                    FeatureDeliveryActionEvent.StartDownload(appRoute.route)
                 )
             }
     }
@@ -84,8 +86,8 @@ fun FeatureLoadingState(
 @Composable
 fun FeatureEmptyState(
     modifier: Modifier = Modifier,
-    missingFeatureList: List<String> = emptyList(),
-    onRequestOnBoardingModule: (String) -> Unit = {}
+    missingFeatureList: List<FeatureAppRoute> = emptyList(),
+    onRequestToInstallModule: (FeatureAppRoute) -> Unit = {}
 ) {
     Column(
         modifier = modifier.fillMaxSize(),
@@ -100,12 +102,12 @@ fun FeatureEmptyState(
             modifier = modifier,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            items(missingFeatureList) { moduleName ->
+            items(missingFeatureList) { appRoute ->
                 Button(
                     modifier = modifier.padding(10.dp),
-                    onClick = { onRequestOnBoardingModule(moduleName) }
+                    onClick = { onRequestToInstallModule(appRoute) }
                 ) {
-                    FeatureBastText(text = "Click to download $moduleName module")
+                    FeatureBastText(text = "Click to download $appRoute module")
                 }
             }
         }
@@ -115,11 +117,11 @@ fun FeatureEmptyState(
 @Composable
 fun FeatureInstallState(
     modifier: Modifier = Modifier,
-    installedFeatureList: List<String> = emptyList(),
-    availableFeatureList: List<String> = emptyList(),
-    onNavigateToModule: (String) -> Unit = {},
-    onRequestUninstallModule: (String) -> Unit = {},
-    onRequestOnBoardingModule: (String) -> Unit = {}
+    installedFeatureList: List<FeatureAppRoute> = emptyList(),
+    availableFeatureList: List<FeatureAppRoute> = emptyList(),
+    onNavigateToModule: (FeatureAppRoute) -> Unit = {},
+    onRequestToUninstallModule: (FeatureAppRoute) -> Unit = {},
+    onRequestToInstallModule: (FeatureAppRoute) -> Unit = {}
 ) {
 
     Column(
@@ -127,7 +129,7 @@ fun FeatureInstallState(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        installedFeatureList.forEach { moduleName ->
+        installedFeatureList.forEach { appRoute ->
             Row(
                 modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
@@ -136,27 +138,27 @@ fun FeatureInstallState(
                 Button(
                     modifier = modifier
                         .padding(10.dp),
-                    onClick = { onNavigateToModule(moduleName) }
+                    onClick = { onNavigateToModule(appRoute) }
                 ) {
-                    FeatureBastText(text = "Navigate To\n$moduleName module")
+                    FeatureBastText(text = "Navigate To\n${appRoute.title} module")
                 }
                 Button(
                     modifier = modifier
                         .padding(10.dp),
-                    onClick = { onRequestUninstallModule(moduleName) }
+                    onClick = { onRequestToUninstallModule(appRoute) }
                 ) {
-                    FeatureBastText(text = "Uninstall\n$moduleName module")
+                    FeatureBastText(text = "Uninstall\n${appRoute.title} module")
                 }
             }
 
         }
 
-        availableFeatureList.filter { it !in installedFeatureList }.forEach { moduleName ->
+        availableFeatureList.filter { it !in installedFeatureList }.forEach { appRoute ->
             Button(
                 modifier = modifier.padding(10.dp),
-                onClick = { onRequestOnBoardingModule(moduleName) }
+                onClick = { onRequestToInstallModule(appRoute) }
             ) {
-                FeatureBastText(text = "Click to download\n$moduleName module")
+                FeatureBastText(text = "Click to download\n${appRoute.title} module")
             }
         }
     }
@@ -175,9 +177,9 @@ private fun FeatureLoadingStatePreview() {
 private fun FeatureEmptyStatePreview() {
     FeatureEmptyState(
         missingFeatureList = listOf(
-            "main",
-            "OnBoarding",
-            "DeviceA"
+            FeatureAppRoute.MAIN,
+            FeatureAppRoute.ON_BOARDING,
+            FeatureAppRoute.DEVICE_A
         )
     )
 }
@@ -188,9 +190,9 @@ private fun FeatureEmptyStatePreview() {
 private fun FeatureInstallStatePreview() {
     FeatureInstallState(
         installedFeatureList = listOf(
-            "main",
-            "onboarding",
+            FeatureAppRoute.MAIN,
+            FeatureAppRoute.ON_BOARDING,
         ),
-        availableFeatureList = FeatureAppRoute.values().map { it.route }
+        availableFeatureList = FeatureAppRoute.featureDestinations
     )
 }
