@@ -2,9 +2,13 @@
 
 A sample application POC to test the feasibility
 of [Jetpack Compose](https://developer.android.com/jetpack/compose)
+
 + [Play Feature Delivery](https://developer.android.com/guide/playcore/feature-delivery).
-This app shows 2 ways for feature delivery; via Activity
-or [Compose NavGraph](https://developer.android.com/jetpack/compose/navigation)
+  This app shows 2 ways for feature delivery; via Activity
+  or [Compose NavGraph](https://developer.android.com/jetpack/compose/navigation)
+
+Original idea
+from [Igor Escodro](https://proandroiddev.com/dynamic-delivery-with-jetpack-compose-c459f9227430)
 
 ## Activity
 
