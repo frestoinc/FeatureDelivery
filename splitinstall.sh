@@ -2,17 +2,24 @@
 
 read -p 'Bundle directory: ' filePath
 
+echo $filePath
+
 keyStoreFile="keystore.properties"
 
-rm -f app.apks
+apkOutput="app.apks"
+
+if [ -e $apkOutput ]; then
+  rm -f $apkOutput
+fi
+
 while IFS='=' read -r key value; do
   key=$(echo $key | tr '.' '_')
   eval ${key}=\${value}
 done <"$keyStoreFile"
 
-# /Users/aliff.ridzuan/StudioProjects/biofourmis/FeatureDelivery/app/release/Feature\ Delivery\ POC-v1.1.0\(9\)-release.aab
-bundletool build-apks --bundle=/Users/aliff.ridzuan/StudioProjects/biofourmis/FeatureDelivery/app/release/Feature\ Delivery\ POC-v1.1.0\(9\)-release.aab \
-  --output=app.apks \
+bundletool build-apks \
+  --bundle="$filePath" \
+  --output=$apkOutput \
   --ks=$storeFile \
   --ks-pass=pass:$storePassword \
   --ks-key-alias=$keyAlias \
@@ -22,6 +29,6 @@ bundletool build-apks --bundle=/Users/aliff.ridzuan/StudioProjects/biofourmis/Fe
 
 adb uninstall com.frestoinc.sample.featuredelivery
 
-bundletool install-apks --apks=app.apks
+bundletool install-apks --apks=$apkOutput
 
 adb shell monkey -p com.frestoinc.sample.featuredelivery 1
